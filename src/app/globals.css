@@ -20,26 +20,37 @@ body {
 .font-serif   { font-family: "Instrument Serif", Georgia, serif; }
 .font-satoshi { font-family: "Satoshi", -apple-system, system-ui, sans-serif; }
 
+/* ── Mobile: true full-screen ── */
 .phone-frame {
   width: 100%;
-  max-width: 430px;
-  min-height: 100dvh;
-  max-height: 100dvh;
-  margin: 0 auto;
+  height: 100dvh;
   background: #fff;
   position: relative;
   overflow: hidden;
 }
 
-@media (min-width: 500px) {
-  .phone-frame {
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.07), 0 24px 80px rgba(0,0,0,0.22);
-  }
+/* ── Desktop: centered phone mockup ── */
+@media (min-width: 768px) {
   html, body {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100dvh;
+    padding: 40px 0;
+  }
+
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    min-height: unset;
+    max-height: 844px;
+    border-radius: 48px;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.08),
+      0 0 0 10px #1c1c1e,
+      0 0 0 12px #3a3a3c,
+      0 32px 80px rgba(0,0,0,0.45);
+    overflow: hidden;
   }
 }
 
