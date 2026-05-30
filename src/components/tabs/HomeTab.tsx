@@ -443,7 +443,7 @@ export default function HomeTab() {
 
       {/* ── Activity Cost Sheet ── */}
       {selected && (
-        <div className="absolute inset-0 z-50 flex flex-col justify-end">
+        <div className="fixed inset-0 z-50 flex flex-col justify-end" style={{ maxWidth: 430, left: "50%", transform: "translateX(-50%)" }}>
           <div className="absolute inset-0 bg-black/30" onClick={() => setSelected(null)}/>
           <div className="relative bg-white rounded-t-3xl px-5 pt-5 pb-10 shadow-2xl">
             <div className="w-10 h-1 rounded-full bg-gray-200 mx-auto mb-4"/>
