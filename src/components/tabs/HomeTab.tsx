@@ -1,5 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SearchModal from "../SearchModal";
+import NotificationsPanel from "../NotificationsPanel";
 import DestinationDetail from "../DestinationDetail";
 
 const adventures = [
@@ -26,12 +28,22 @@ const nearby = [
 type Dest = typeof adventures[0];
 
 export default function HomeTab() {
-  const [liked, setLiked] = useState<Set<string>>(new Set());
+  const [liked, setLiked] = useState<Set<string>>(() => {
+    if (typeof window === 'undefined') return new Set<string>();
+    try { return new Set(JSON.parse(localStorage.getItem('compass_liked') || '[]')); } catch { return new Set<string>(); }
+  });
   const [detail, setDetail] = useState<Dest | null>(null);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showNotifs, setShowNotifs] = useState(false);
 
   const toggleLike = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
-    setLiked(s => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+    setLiked(s => {
+      const n = new Set(s);
+      n.has(id) ? n.delete(id) : n.add(id);
+      try { localStorage.setItem('compass_liked', JSON.stringify([...n])); } catch {}
+      return n;
+    });
   };
 
   if (detail) return <DestinationDetail dest={detail} onBack={() => setDetail(null)} />;
@@ -52,7 +64,7 @@ export default function HomeTab() {
           </div>
           <span className="font-serif text-[22px] text-black tracking-tight">Compass</span>
         </div>
-        <button className="w-9 h-9 flex items-center justify-center rounded-full bg-[#f5f5f5]">
+        <button onClick={() => setShowNotifs(true)} className="w-9 h-9 flex items-center justify-center rounded-full bg-[#f5f5f5] relative">
           {/* Bell */}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="#1c1c1e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -62,7 +74,7 @@ export default function HomeTab() {
 
       {/* ── Search bar ── */}
       <div className="px-5 mb-5">
-        <button className="w-full flex items-center gap-3 bg-[#f5f5f5] rounded-2xl px-4 py-3.5 text-left">
+        <button onClick={() => setShowSearch(true)} className="w-full flex items-center gap-3 bg-[#f5f5f5] rounded-2xl px-4 py-3.5 text-left">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
             <circle cx="11" cy="11" r="8" stroke="#8e8e93" strokeWidth="2"/>
             <path d="M21 21l-4.35-4.35" stroke="#8e8e93" strokeWidth="2.2" strokeLinecap="round"/>
@@ -171,6 +183,10 @@ export default function HomeTab() {
       </div>
 
       <div className="h-4" />
+
+      {/* Modals */}
+      {showSearch && <SearchModal onClose={() => setShowSearch(false)} />}
+      {showNotifs && <NotificationsPanel onClose={() => setShowNotifs(false)} />}
     </div>
   );
 }
