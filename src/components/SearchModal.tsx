@@ -47,7 +47,7 @@ export default function SearchModal({ onClose, onSelect, initialQuery = "" }: Pr
     : [];
 
   return (
-    <div className="fixed inset-0 bg-white z-50 flex flex-col" style={{ maxWidth: 430, left: "50%", transform: "translateX(-50%)" }}>
+    <div className="absolute inset-0 bg-white z-50 flex flex-col">
       {/* Search input row */}
       <div className="flex items-center gap-3 px-5 pt-12 pb-3 border-b border-gray-100">
         <div className="flex-1 flex items-center gap-2.5 bg-[#f5f5f5] rounded-2xl px-4 py-3">
