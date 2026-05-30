@@ -66,7 +66,7 @@ export default function WelcomeScreen() {
 
       <div className="flex-1 bg-white flex flex-col px-6 pt-6 pb-8">
         <div className="flex-1">
-          <h1 className="font-bold text-gray-900 leading-tight whitespace-pre-line" style={{ fontSize: 30, letterSpacing: "-0.5px" }}>
+          <h1 className="font-serif text-black leading-tight whitespace-pre-line" style={{ fontSize: 32 }}>
             {slides[current].title}
           </h1>
           <p className="text-[15px] text-gray-400 mt-2 leading-relaxed whitespace-pre-line">

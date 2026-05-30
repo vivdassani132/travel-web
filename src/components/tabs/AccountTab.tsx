@@ -7,7 +7,7 @@ export default function AccountTab() {
   return (
     <div className="h-full overflow-y-auto scrollbar-hide bg-white">
       <div className="px-4 pt-12 pb-4">
-        <h1 className="text-[28px] font-bold text-gray-900" style={{ letterSpacing: "-0.4px" }}>Account</h1>
+        <h1 className="font-serif text-[30px] text-black">Account</h1>
       </div>
 
       {/* Profile card */}

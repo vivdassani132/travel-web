@@ -24,7 +24,7 @@ export default function SearchTab() {
   return (
     <div className="h-full overflow-y-auto scrollbar-hide bg-white">
       <div className="px-4 pt-12 pb-4">
-        <h1 className="text-[28px] font-bold text-gray-900 mb-4" style={{ letterSpacing: "-0.4px" }}>Search</h1>
+        <h1 className="font-serif text-[30px] text-black mb-4">Search</h1>
         <div className="flex items-center gap-2.5 bg-[#f2f2f7] rounded-full px-4 py-3">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="8" stroke="#8e8e93" strokeWidth="2"/><path d="M21 21l-4.35-4.35" stroke="#8e8e93" strokeWidth="2" strokeLinecap="round"/></svg>
           <input className="flex-1 bg-transparent text-[15px] outline-none placeholder-gray-400 text-gray-900" placeholder="Places to go, things to do, hotels..." value={query} onChange={e => setQuery(e.target.value)} />
@@ -45,7 +45,7 @@ export default function SearchTab() {
 
       {/* Popular destinations */}
       <div className="px-4 mb-3">
-        <h2 className="text-[19px] font-bold text-gray-900">Popular destinations</h2>
+        <h2 className="font-serif text-[22px] text-black">Popular destinations</h2>
       </div>
       <div className="grid grid-cols-2 gap-3 px-4 pb-6">
         {popular.map(d => (

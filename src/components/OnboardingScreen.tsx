@@ -167,7 +167,7 @@ export default function OnboardingScreen() {
 
         {/* Question */}
         <div className="px-5 mb-4">
-          <h2 className="text-[22px] font-bold text-gray-900 leading-snug" style={{ letterSpacing: "-0.3px" }}>
+          <h2 className="font-serif text-[24px] text-black leading-snug">
             {current.q}
           </h2>
           <p className="text-[14px] text-gray-400 mt-1">{current.hint}</p>

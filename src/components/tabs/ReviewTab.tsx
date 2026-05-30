@@ -8,7 +8,7 @@ export default function ReviewTab() {
   return (
     <div className="h-full overflow-y-auto scrollbar-hide bg-white">
       <div className="px-4 pt-12 pb-4">
-        <h1 className="text-[28px] font-bold text-gray-900 mb-1" style={{ letterSpacing: "-0.4px" }}>Write a Review</h1>
+        <h1 className="font-serif text-[30px] text-black mb-1">Write a Review</h1>
         <p className="text-[14px] text-gray-400">Share your experience to help other travelers</p>
       </div>
 

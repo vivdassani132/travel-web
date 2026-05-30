@@ -27,7 +27,7 @@ export default function TripsTab() {
   return (
     <div className="h-full overflow-y-auto scrollbar-hide bg-white">
       <div className="px-4 pt-12 pb-2">
-        <h1 className="text-[28px] font-bold text-gray-900" style={{ letterSpacing: "-0.4px" }}>Trips</h1>
+        <h1 className="font-serif text-[30px] text-black">Trips</h1>
       </div>
 
       {/* Segment */}
