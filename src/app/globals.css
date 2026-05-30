@@ -1,8 +1,41 @@
 @import "tailwindcss";
 
-* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-html, body { height: 100%; background: #f2f2f7; }
-body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif; }
-.phone-frame { max-width: 390px; min-height: 100dvh; margin: 0 auto; background: #fff; position: relative; overflow: hidden; }
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: #e8e8ed;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.phone-frame {
+  max-width: 390px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 20px 60px rgba(0,0,0,0.20);
+}
+
+@media (min-height: 700px) {
+  .phone-frame {
+    min-height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Smooth transitions */
+* { transition-property: none; }
+button { cursor: pointer; }
