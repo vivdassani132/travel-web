@@ -150,18 +150,18 @@ export default function OnboardingScreen() {
   if (connectPhase === 'instagram') {
     return (
       <div className="flex flex-col bg-white overflow-hidden" style={{ height: "100dvh" }}>
-        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "45%" }}>
+        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "36%" }}>
           <img src="https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" alt="" className="w-full h-full object-cover"/>
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, white, transparent 60%)" }}/>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, white 10%, transparent 65%)" }}/>
         </div>
-        <div className="flex-1 flex flex-col px-6 pt-2 pb-8">
+        <div className="flex-1 flex flex-col px-6 pt-0 pb-8">
           <div className="flex-1">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center mb-3">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="5" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
             </div>
             <h2 className="font-serif text-[28px] text-black leading-tight mb-2">Connect Instagram</h2>
             <p className="font-satoshi text-[15px] text-gray-400 leading-relaxed">Compass can read your travel posts and reels to build an even more personal trip DNA. Your data stays private.</p>
-            <div className="mt-5 space-y-3">
+            <div className="mt-4 space-y-3">
               {["Personalise destinations from your posts","Match vibes from people you follow","Find travel-ready friends"].map(t => (
                 <div key={t} className="flex items-center gap-2.5"><div className="w-1.5 h-1.5 rounded-full bg-black flex-shrink-0"/><span className="font-satoshi text-[14px] text-gray-700">{t}</span></div>
               ))}
@@ -213,8 +213,8 @@ export default function OnboardingScreen() {
 
       {/* ── Compass logo ── */}
       <div className="flex items-center gap-2 px-5 pt-12 pb-2 absolute top-0 left-0 z-20">
-        <div className="w-8 h-8 rounded-full overflow-hidden">
-          <img src="https://i.pinimg.com/1200x/da/79/67/da7967bab2b6d69a11986a73c8e35f3d.jpg" alt="Compass" className="w-full h-full object-cover"/>
+        <div className="w-8 h-8 rounded-full overflow-hidden bg-black">
+          <img src="https://i.pinimg.com/1200x/da/79/67/da7967bab2b6d69a11986a73c8e35f3d.jpg" alt="Compass" className="w-full h-full object-cover" style={{ mixBlendMode: "multiply" }}/>
         </div>
         <span className="font-serif text-[20px] text-white drop-shadow-sm">Compass</span>
       </div>
