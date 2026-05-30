@@ -211,14 +211,6 @@ export default function OnboardingScreen() {
   return (
     <div className="flex flex-col bg-white overflow-hidden" style={{ height: "100dvh" }}>
 
-      {/* ── Compass logo ── */}
-      <div className="flex items-center gap-2 px-5 pt-12 pb-2 absolute top-0 left-0 z-20">
-        <div className="w-8 h-8 rounded-full overflow-hidden bg-black">
-          <img src="https://i.pinimg.com/1200x/da/79/67/da7967bab2b6d69a11986a73c8e35f3d.jpg" alt="Compass" className="w-full h-full object-cover" style={{ mixBlendMode: "multiply" }}/>
-        </div>
-        <span className="font-serif text-[20px] text-white drop-shadow-sm">Compass</span>
-      </div>
-
       {/* ── Hero image ── */}
       <div className="relative flex-shrink-0 overflow-hidden" style={{ height: isPhotoStep ? "28%" : "34%" }}>
         {stepImages.map((img, i) => (
