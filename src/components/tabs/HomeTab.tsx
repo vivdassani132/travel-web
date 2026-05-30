@@ -518,7 +518,7 @@ export default function HomeTab() {
 
       <div className="h-28"/>
 
-      {showSearch && <SearchModal onClose={() => setShowSearch(false)} />}
+      {showSearch && <SearchModal onClose={() => setShowSearch(false)} onSelect={d => { setDetail(d); setShowSearch(false); }} />}
       {showNotifs && <NotificationsPanel onClose={() => setShowNotifs(false)} />}
     </div>
   );

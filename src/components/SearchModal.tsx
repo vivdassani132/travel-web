@@ -29,9 +29,10 @@ const ALL_DESTINATIONS = [
 
 const RECENT = ["Swiss Alps", "Buenos Aires", "Maldives"];
 
-interface Props { onClose: () => void; }
+interface Dest { id: string; name: string; country: string; tags: string[]; photo: string; }
+interface Props { onClose: () => void; onSelect?: (dest: Dest) => void; }
 
-export default function SearchModal({ onClose }: Props) {
+export default function SearchModal({ onClose, onSelect }: Props) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -84,7 +85,7 @@ export default function SearchModal({ onClose }: Props) {
               {RECENT.map(name => {
                 const d = ALL_DESTINATIONS.find(x => x.name === name)!;
                 return (
-                  <button key={name} onClick={() => setQuery(name)} className="w-full flex items-center gap-3 py-2.5">
+                  <button key={name} onClick={() => { if (onSelect) { onSelect({ id: d.name.toLowerCase().replace(/\s/g,"-"), ...d }); onClose(); } else setQuery(name); }} className="w-full flex items-center gap-3 py-2.5">
                     <div className="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0">
                       <img src={d.photo} alt={name} className="w-full h-full object-cover" />
                     </div>
@@ -129,8 +130,9 @@ export default function SearchModal({ onClose }: Props) {
             <div className="font-satoshi text-[12px] font-600 text-gray-400 uppercase tracking-wider mb-3">{results.length} result{results.length !== 1 ? "s" : ""}</div>
             <div className="space-y-3">
               {results.map(d => (
-                <div key={d.name}
-                  className="w-full flex items-stretch border border-gray-100 rounded-2xl overflow-hidden shadow-[0_1px_6px_rgba(0,0,0,0.04)] text-left">
+                <button key={d.name}
+                  onClick={() => { if (onSelect) { onSelect({ id: d.name.toLowerCase().replace(/\s/g,"-"), ...d }); onClose(); } }}
+                  className="w-full flex items-stretch border border-gray-100 rounded-2xl overflow-hidden shadow-[0_1px_6px_rgba(0,0,0,0.04)] text-left active:bg-gray-50">
                   <div className="w-[80px] flex-shrink-0">
                     <img src={d.photo} alt={d.name} className="w-full h-full object-cover" />
                   </div>
@@ -143,7 +145,7 @@ export default function SearchModal({ onClose }: Props) {
                       ))}
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
             <div className="h-8"/>
