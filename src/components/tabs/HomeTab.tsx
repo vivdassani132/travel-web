@@ -261,6 +261,37 @@ const TRIPS: Record<string, Trip> = {
 
 const DEFAULT_TRIP = TRIPS["Coastal & Ocean"] || Object.values(TRIPS)[0];
 
+type Event = { label: string; sub: string; date: string; tag: string; img: string; fifa?: boolean };
+const EVENTS: Record<string, Event[]> = {
+  "Pampas & Steppe": [
+    { label:"⚽ Boca vs River Plate", sub:"El Superclásico · La Bombonera", date:"Dec 28", tag:"Football", img:"https://i.pinimg.com/736x/27/c8/74/27c87463c7f93c03a5f9aae392e82b7c.jpg" },
+    { label:"Buenos Aires Tango Festival", sub:"Palermo · Annual world championship", date:"Dec 30", tag:"Culture", img:"https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" },
+    { label:"Teatro Colón — Opera Night", sub:"World's top 5 opera houses", date:"Dec 29", tag:"Arts", img:"https://i.pinimg.com/1200x/19/a8/d8/19a8d8e4823bfe5c62e42ecd23d9555d.jpg" },
+  ],
+  "Coastal & Ocean": [
+    { label:"Maldives Surf Pro", sub:"Sultans · WSL qualifying series", date:"Jan 6", tag:"Surf", img:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
+    { label:"Underwater Photography Expo", sub:"Conrad Rangali Island Resort", date:"Jan 8", tag:"Photography", img:"https://i.pinimg.com/1200x/89/92/da/8992da97b30bd7a97c12cae8d68fd4a2.jpg" },
+    { label:"Manta Ray Night Dive", sub:"Hanifaru Bay UNESCO biosphere", date:"Jan 9", tag:"Nature", img:"https://i.pinimg.com/1200x/22/52/2f/22522f3a4c9c123606642adb5f13cbb4.jpg" },
+  ],
+  "Alpine & Highland": [
+    { label:"FIS Ski World Cup Wengen", sub:"Lauberhorn downhill · Oldest race in skiing", date:"Feb 3", tag:"Skiing", img:"https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+    { label:"⚽ FIFA World Cup 2026", sub:"MetLife Stadium, New Jersey — USA", date:"Jun–Jul 2026", tag:"FIFA", img:"https://i.pinimg.com/736x/46/6d/43/466d437cbf3411d7b8001ce8239497a1.jpg", fifa:true },
+    { label:"Ice Magic Lucerne", sub:"Outdoor ice skating on Lake Lucerne", date:"Feb 5", tag:"Winter", img:"https://i.pinimg.com/1200x/fa/c8/04/fac80456650bd429dd4ae2f22adcc2c1.jpg" },
+  ],
+  "Rainforest & Jungle": [
+    { label:"Parintins Folklore Festival", sub:"Amazon's largest cultural event", date:"Mar 5", tag:"Culture", img:"https://i.pinimg.com/736x/3c/5b/a9/3c5ba90171601238cbd6f62058628569.jpg" },
+    { label:"Amazon Jazz Festival", sub:"Teatro Amazonas, Manaus", date:"Mar 7", tag:"Music", img:"https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" },
+    { label:"⚽ Brasileirão — Flamengo", sub:"Estádio do Maracanã, Rio de Janeiro", date:"Mar 9", tag:"Football", img:"https://i.pinimg.com/736x/27/c8/74/27c87463c7f93c03a5f9aae392e82b7c.jpg" },
+  ],
+  "Urban Landscape": [
+    { label:"⚽ FIFA World Cup — USA vs Argentina", sub:"MetLife Stadium, New Jersey", date:"Jun 15 2026", tag:"FIFA", img:"https://i.pinimg.com/736x/68/9f/86/689f8682ab5151f43aa6d1abfb11d885.jpg", fifa:true },
+    { label:"⚽ FIFA World Cup Final", sub:"MetLife Stadium, New Jersey", date:"Jul 19 2026", tag:"FIFA", img:"https://i.pinimg.com/736x/46/6d/43/466d437cbf3411d7b8001ce8239497a1.jpg", fifa:true },
+    { label:"NYC Marathon", sub:"All 5 boroughs · 50,000 runners", date:"Apr 13", tag:"Sport", img:"https://i.pinimg.com/1200x/1c/d1/b2/1cd1b22dd9aba43c65672ce40398bbea.jpg" },
+    { label:"India Day Parade", sub:"Madison Ave · Bollywood floats & music", date:"Apr 14", tag:"Culture", img:"https://i.pinimg.com/1200x/45/c6/f1/45c6f1dd157d6f6699db863bf4542289.jpg" },
+    { label:"NYC Chinatown Lunar New Year", sub:"Mott Street · Dragon parade & fireworks", date:"Apr 12", tag:"Culture", img:"https://i.pinimg.com/1200x/71/91/66/7191662a7e1dd0169dd344203a191225.jpg" },
+  ],
+};
+
 const DISCOVER = [
   { id:"cusco",    name:"Cusco",        country:"Peru",       tags:["Cultural","Highlands"], photo:DEST.peru      },
   { id:"kyoto",    name:"Kyoto",        country:"Japan",      tags:["Temples","Food"],       photo:DEST.kyoto     },
@@ -405,6 +436,48 @@ export default function HomeTab() {
           ))}
         </div>
       )}
+
+      {/* Events */}
+      {(() => {
+        const evts = EVENTS[primaryInterest] || EVENTS["Urban Landscape"];
+        const hasFifa = evts.some(e => e.fifa);
+        return (
+          <div className="mb-6">
+            <div className="px-5 mb-3 flex items-center justify-between">
+              <h2 className="font-serif text-[24px] text-black">Events near your trip</h2>
+              {hasFifa && (
+                <div className="flex items-center gap-1 bg-black rounded-full px-2.5 py-1">
+                  <span className="text-[10px]">⚽</span>
+                  <span className="font-satoshi text-[10px] font-600 text-white">FIFA 2026</span>
+                </div>
+              )}
+            </div>
+            <div className="flex gap-3 overflow-x-auto scrollbar-hide px-5 pb-1">
+              {evts.map((ev, i) => (
+                <div key={i} className="flex-shrink-0 w-[200px] rounded-2xl overflow-hidden relative" style={{ height: 220 }}>
+                  <img src={ev.img} alt={ev.label} className="w-full h-full object-cover"/>
+                  <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.05) 85%)" }}/>
+                  {ev.fifa && (
+                    <div className="absolute top-3 left-3 bg-white rounded-full px-2 py-0.5">
+                      <span className="font-satoshi text-[9px] font-700 text-black tracking-wide">⚽ FIFA 2026</span>
+                    </div>
+                  )}
+                  {!ev.fifa && (
+                    <div className="absolute top-3 left-3 bg-white/90 rounded-full px-2 py-0.5">
+                      <span className="font-satoshi text-[9px] font-600 text-gray-800">{ev.tag}</span>
+                    </div>
+                  )}
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <div className="font-satoshi text-[13px] font-700 text-white leading-snug">{ev.label}</div>
+                    <div className="font-satoshi text-[11px] text-white/65 mt-0.5 leading-snug">{ev.sub}</div>
+                    <div className="font-satoshi text-[10px] text-white/50 mt-1">{ev.date}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Discover */}
       <div className="px-5 mb-4">
