@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useStore } from "@/lib/store";
 
 const segments = ["Upcoming", "Past", "Saved"];
 
@@ -21,7 +22,16 @@ const saved = [
   { name: "Russia",       country: "Russia",    photo: "https://i.pinimg.com/1200x/fa/c8/04/fac80456650bd429dd4ae2f22adcc2c1.jpg" },
 ];
 
-export default function TripsTab() {
+// Map trip name → biome key used in HomeTab TRIPS
+const TRIP_TO_BIOME: Record<string, string> = {
+  "Cusco":     "Rainforest & Jungle",
+  "Kyoto":     "Alpine & Highland",
+};
+
+interface Props { onSwitchToHome?: () => void; }
+
+export default function TripsTab({ onSwitchToHome }: Props) {
+  const { setProfile } = useStore();
   const [seg, setSeg] = useState("Upcoming");
 
   return (
@@ -78,7 +88,11 @@ export default function TripsTab() {
                   </div>
                   <div className="flex gap-2">
                     <button className="flex-1 py-2.5 rounded-xl text-[13px] font-medium text-gray-700 bg-[#f2f2f7]">Details</button>
-                    <button className="flex-1 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-gray-900">Continue Planning</button>
+                    <button onClick={() => {
+                      const biome = TRIP_TO_BIOME[t.name] || "Coastal & Ocean";
+                      setProfile({ interests: [biome] });
+                      onSwitchToHome?.();
+                    }} className="flex-1 py-2.5 rounded-xl text-[13px] font-semibold text-white bg-gray-900">Continue Planning</button>
                   </div>
                 </div>
               </div>

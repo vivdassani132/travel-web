@@ -3,7 +3,6 @@ import { useState } from "react";
 import HomeTab from "./tabs/HomeTab";
 import SearchTab from "./tabs/SearchTab";
 import TripsTab from "./tabs/TripsTab";
-import TicketsTab from "./tabs/TicketsTab";
 import AccountTab from "./tabs/AccountTab";
 
 const tabs = [
@@ -37,16 +36,6 @@ const tabs = [
     ),
   },
   {
-    key: "tickets", label: "Tickets",
-    icon: (active: boolean) => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M2 9a1 1 0 011-1h18a1 1 0 011 1v2a2 2 0 000 4v2a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a2 2 0 000-4V9z"
-          stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
-        {active && <path d="M9 8v8M12 8v8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 2"/>}
-      </svg>
-    ),
-  },
-  {
     key: "account", label: "Account",
     icon: (active: boolean) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -57,7 +46,7 @@ const tabs = [
   },
 ];
 
-type TabKey = "home"|"search"|"trips"|"tickets"|"account";
+type TabKey = "home"|"search"|"trips"|"account";
 
 export default function MainScreen() {
   const [tab, setTab] = useState<TabKey>("home");
@@ -67,12 +56,11 @@ export default function MainScreen() {
       <div className="flex-1 overflow-hidden">
         {tab === "home"    && <HomeTab />}
         {tab === "search"  && <SearchTab />}
-        {tab === "trips"   && <TripsTab />}
-        {tab === "tickets" && <TicketsTab />}
+        {tab === "trips"   && <TripsTab onSwitchToHome={() => setTab("home")} />}
         {tab === "account" && <AccountTab />}
       </div>
 
-      {/* Flat bottom tab bar — matches TripAdvisor */}
+      {/* Bottom tab bar */}
       <div className="flex-shrink-0 bg-white border-t border-gray-200">
         <div className="flex">
           {tabs.map(t => {
@@ -84,19 +72,15 @@ export default function MainScreen() {
                 className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5"
               >
                 {t.icon(isActive)}
-                <span
-                  className="text-[10px] font-medium"
-                  style={{ color: isActive ? "#1c1c1e" : "#8e8e93" }}
-                >
+                <span className="text-[10px] font-medium" style={{ color: isActive ? "#1c1c1e" : "#8e8e93" }}>
                   {t.label}
                 </span>
               </button>
             );
           })}
         </div>
-        {/* iOS home indicator */}
         <div className="flex justify-center pb-1 pt-0.5">
-          <div className="w-[120px] h-1 rounded-full bg-gray-200" />
+          <div className="w-[120px] h-1 rounded-full bg-gray-200"/>
         </div>
       </div>
     </div>

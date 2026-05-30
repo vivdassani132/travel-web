@@ -30,10 +30,10 @@ const ALL_DESTINATIONS = [
 const RECENT = ["Swiss Alps", "Buenos Aires", "Maldives"];
 
 interface Dest { id: string; name: string; country: string; tags: string[]; photo: string; }
-interface Props { onClose: () => void; onSelect?: (dest: Dest) => void; }
+interface Props { onClose: () => void; onSelect?: (dest: Dest) => void; initialQuery?: string; }
 
-export default function SearchModal({ onClose, onSelect }: Props) {
-  const [query, setQuery] = useState("");
+export default function SearchModal({ onClose, onSelect, initialQuery = "" }: Props) {
+  const [query, setQuery] = useState(initialQuery);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { inputRef.current?.focus(); }, []);
