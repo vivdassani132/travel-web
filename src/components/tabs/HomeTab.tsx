@@ -277,7 +277,6 @@ export default function HomeTab() {
   const [showNotifs, setShowNotifs] = useState(false);
   const [detail, setDetail]   = useState<DiscoverDest | null>(null);
   const [activeDay, setActiveDay] = useState(0);
-  const [selected, setSelected] = useState<Activity | null>(null);
   const [liked, setLiked] = useState<Set<string>>(() => {
     if (typeof window === "undefined") return new Set();
     try { return new Set(JSON.parse(localStorage.getItem("compass_liked")||"[]")); } catch { return new Set(); }
@@ -309,12 +308,8 @@ export default function HomeTab() {
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-12 pb-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="white" strokeWidth="1.6"/>
-              <path d="M16.5 7.5l-3 6-6 3 3-6 6-3z" fill="white"/>
-              <circle cx="12" cy="12" r="1.5" fill="black"/>
-            </svg>
+          <div className="w-9 h-9 rounded-xl overflow-hidden">
+            <img src="https://i.pinimg.com/1200x/6d/08/00/6d0800d84e05774759f339159ed5f06c.jpg" alt="Compass" className="w-full h-full object-cover"/>
           </div>
           <span className="font-serif text-[22px] text-black">Compass</span>
         </div>
@@ -392,8 +387,7 @@ export default function HomeTab() {
                   <div className="w-8 h-8 rounded-full bg-[#f5f5f5] flex items-center justify-center text-sm flex-shrink-0">{typeIcon(ev.type)}</div>
                   {i < dayPlan.events.length - 1 && <div className="w-px flex-1 bg-gray-100 mt-1 mb-1" style={{ minHeight: 12 }}/>}
                 </div>
-                <button onClick={() => setSelected(ev)}
-                  className="flex-1 flex gap-3 rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_6px_rgba(0,0,0,0.04)] mb-0 text-left bg-white active:bg-gray-50 transition-colors">
+                <div className="flex-1 flex gap-3 rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_6px_rgba(0,0,0,0.04)] mb-0 text-left bg-white">
                   <div className="w-[88px] h-[80px] flex-shrink-0 overflow-hidden">
                     <img src={ev.img} alt={ev.label} className="w-full h-full object-cover"/>
                   </div>
@@ -405,7 +399,7 @@ export default function HomeTab() {
                     <div className="font-satoshi text-[14px] font-700 text-gray-900 leading-snug mt-0.5">{ev.label}</div>
                     <div className="font-satoshi text-[12px] text-gray-400 mt-0.5 leading-snug">{ev.note}</div>
                   </div>
-                </button>
+                </div>
               </div>
             </div>
           ))}
@@ -440,44 +434,6 @@ export default function HomeTab() {
       </div>
 
       <div className="h-28"/>
-
-      {/* ── Activity Cost Sheet ── */}
-      {selected && (
-        <div className="fixed inset-0 z-50 flex flex-col justify-end" style={{ maxWidth: 430, left: "50%", transform: "translateX(-50%)" }}>
-          <div className="absolute inset-0 bg-black/30" onClick={() => setSelected(null)}/>
-          <div className="relative bg-white rounded-t-3xl px-5 pt-5 pb-10 shadow-2xl">
-            <div className="w-10 h-1 rounded-full bg-gray-200 mx-auto mb-4"/>
-            {/* Photo */}
-            <div className="rounded-2xl overflow-hidden mb-4" style={{ height: 160 }}>
-              <img src={selected.img} alt={selected.label} className="w-full h-full object-cover"/>
-            </div>
-            <div className="flex items-start justify-between mb-1">
-              <div className="flex-1">
-                <div className="font-satoshi text-[11px] text-gray-400 uppercase tracking-wider">{selected.time} · {selected.type}</div>
-                <div className="font-serif text-[22px] text-black leading-snug mt-0.5">{selected.label}</div>
-              </div>
-              <div className="text-right ml-3">
-                <div className="font-satoshi text-[11px] text-gray-400">Estimated</div>
-                <div className="font-serif text-[20px] text-black">{selected.cost}</div>
-              </div>
-            </div>
-            <p className="font-satoshi text-[13px] text-gray-500 mb-4">{selected.note}</p>
-            {/* Breakdown */}
-            <div className="bg-[#f9f9f9] rounded-2xl overflow-hidden mb-4">
-              <div className="font-satoshi text-[11px] font-600 text-gray-500 uppercase tracking-wider px-4 py-2.5 border-b border-gray-100">Cost breakdown</div>
-              {selected.breakdown.map((line, i) => (
-                <div key={i} className={`flex items-center justify-between px-4 py-2.5 font-satoshi ${i < selected.breakdown.length-1 ? "border-b border-gray-100" : ""}`}>
-                  <span className="text-[14px] text-gray-700">{line.label}</span>
-                  <span className="text-[14px] font-600 text-gray-900">{line.cost}</span>
-                </div>
-              ))}
-            </div>
-            <button className="w-full py-4 rounded-2xl bg-black text-white font-satoshi text-[16px] font-600">
-              Book this → {selected.cost}
-            </button>
-          </div>
-        </div>
-      )}
 
       {showSearch && <SearchModal onClose={() => setShowSearch(false)} />}
       {showNotifs && <NotificationsPanel onClose={() => setShowNotifs(false)} />}

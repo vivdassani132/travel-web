@@ -133,12 +133,8 @@ export default function OnboardingScreen() {
   if (connectPhase === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center bg-white" style={{ height: "100dvh" }}>
-        <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center mb-5">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9" stroke="white" strokeWidth="1.6"/>
-            <path d="M16.5 7.5l-3 6-6 3 3-6 6-3z" fill="white"/>
-            <circle cx="12" cy="12" r="1.5" fill="black"/>
-          </svg>
+        <div className="w-14 h-14 rounded-2xl overflow-hidden mb-5">
+          <img src="https://i.pinimg.com/1200x/6d/08/00/6d0800d84e05774759f339159ed5f06c.jpg" alt="Compass" className="w-full h-full object-cover"/>
         </div>
         <div className="font-serif text-[26px] text-black mb-2">Building your profile</div>
         <div className="font-satoshi text-[14px] text-gray-400 mb-8 text-center px-10">Curating destinations based on your style...</div>
@@ -217,12 +213,8 @@ export default function OnboardingScreen() {
 
       {/* ── Compass logo ── */}
       <div className="flex items-center gap-2 px-5 pt-12 pb-2 absolute top-0 left-0 z-20">
-        <div className="w-8 h-8 rounded-xl bg-black flex items-center justify-center">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9" stroke="white" strokeWidth="1.6"/>
-            <path d="M16.5 7.5l-3 6-6 3 3-6 6-3z" fill="white"/>
-            <circle cx="12" cy="12" r="1.5" fill="black"/>
-          </svg>
+        <div className="w-8 h-8 rounded-xl overflow-hidden">
+          <img src="https://i.pinimg.com/1200x/6d/08/00/6d0800d84e05774759f339159ed5f06c.jpg" alt="Compass" className="w-full h-full object-cover"/>
         </div>
         <span className="font-serif text-[20px] text-white drop-shadow-sm">Compass</span>
       </div>
