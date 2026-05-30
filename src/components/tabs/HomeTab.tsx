@@ -388,7 +388,7 @@ export default function HomeTab() {
                   {i < dayPlan.events.length - 1 && <div className="w-px flex-1 bg-gray-100 mt-1 mb-1" style={{ minHeight: 12 }}/>}
                 </div>
                 <div className="flex-1 flex gap-3 rounded-2xl overflow-hidden border border-gray-100 shadow-[0_1px_6px_rgba(0,0,0,0.04)] mb-0 text-left bg-white">
-                  <div className="w-[88px] h-[80px] flex-shrink-0 overflow-hidden">
+                  <div className="w-[88px] flex-shrink-0 self-stretch overflow-hidden" style={{ minHeight: 80 }}>
                     <img src={ev.img} alt={ev.label} className="w-full h-full object-cover"/>
                   </div>
                   <div className="flex-1 py-2.5 pr-3 flex flex-col justify-center">

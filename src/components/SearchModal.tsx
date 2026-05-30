@@ -12,10 +12,22 @@ const ALL_DESTINATIONS = [
   { name: "Rio de Janeiro", country: "Brazil",      tags: ["Beach","Carnival","Mountains"],         photo: "https://i.pinimg.com/736x/3c/5b/a9/3c5ba90171601238cbd6f62058628569.jpg" },
   { name: "Santorini",      country: "Greece",      tags: ["Island","Romantic","Sunset"],           photo: "https://i.pinimg.com/1200x/ec/38/a3/ec38a3bf4a8a1b6c838c9ddca0a66833.jpg" },
   { name: "New York",       country: "USA",         tags: ["Urban","Food","Culture","Shopping"],    photo: "https://i.pinimg.com/1200x/1c/d1/b2/1cd1b22dd9aba43c65672ce40398bbea.jpg" },
-  { name: "Alps",           country: "Switzerland", tags: ["Mountain","Skiing","Hiking"],           photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Swiss Alps",     country: "Switzerland", tags: ["Mountain","Skiing","Hiking"],           photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  // Swiss Alps hotels & places
+  { name: "Victoria-Jungfrau Grand Hotel",  country: "Interlaken, Switzerland",   tags: ["Hotel","Luxury","Alps","Spa"],            photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "The Chedi Andermatt",            country: "Andermatt, Switzerland",    tags: ["Hotel","Ski","Luxury","Alpine"],          photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Bellevue Hotel Grindelwald",     country: "Grindelwald, Switzerland",  tags: ["Hotel","Mountain","View","Boutique"],     photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Palace Hotel Luzern",            country: "Lucerne, Switzerland",      tags: ["Hotel","Heritage","Lake","Classic"],      photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Tschuggen Grand Hotel",          country: "Arosa, Switzerland",        tags: ["Hotel","Spa","Ski","5-Star"],             photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Jungfraujoch — Top of Europe",  country: "Bernese Alps, Switzerland", tags: ["Summit","Experience","Glacier","Views"],  photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Aletsch Glacier Walk",           country: "Valais, Switzerland",       tags: ["Hiking","Glacier","Alpine","Nature"],     photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Lake Thun Kayaking",             country: "Thun, Switzerland",         tags: ["Activity","Water","Alps","Kayak"],        photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Interlaken Old Town",            country: "Interlaken, Switzerland",   tags: ["Village","Shopping","Alps","Walk"],       photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Grindelwald Village",            country: "Grindelwald, Switzerland",  tags: ["Village","Ski","Hiking","Scenic"],        photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
+  { name: "Zermatt & Matterhorn",           country: "Zermatt, Switzerland",      tags: ["Iconic","Mountain","Skiing","Hiking"],    photo: "https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
 ];
 
-const RECENT = ["Kyoto", "Buenos Aires", "Maldives"];
+const RECENT = ["Swiss Alps", "Buenos Aires", "Maldives"];
 
 interface Props { onClose: () => void; }
 
@@ -34,7 +46,7 @@ export default function SearchModal({ onClose }: Props) {
     : [];
 
   return (
-    <div className="absolute inset-0 bg-white z-50 flex flex-col" style={{ height: "100dvh" }}>
+    <div className="fixed inset-0 bg-white z-50 flex flex-col" style={{ maxWidth: 430, left: "50%", transform: "translateX(-50%)" }}>
       {/* Search input row */}
       <div className="flex items-center gap-3 px-5 pt-12 pb-3 border-b border-gray-100">
         <div className="flex-1 flex items-center gap-2.5 bg-[#f5f5f5] rounded-2xl px-4 py-3">
@@ -90,7 +102,7 @@ export default function SearchModal({ onClose }: Props) {
 
             <div className="font-satoshi text-[12px] font-600 text-gray-400 uppercase tracking-wider mb-3">Explore by vibe</div>
             <div className="flex flex-wrap gap-2">
-              {["Beach","Mountain","City","Jungle","Desert","Island","Winter","Culture","Food"].map(tag => (
+              {["Beach","Mountain","City","Jungle","Desert","Island","Winter","Culture","Food","Alpine","Ski","Hotel"].map(tag => (
                 <button key={tag} onClick={() => setQuery(tag)}
                   className="font-satoshi text-[13px] font-500 text-gray-700 bg-[#f5f5f5] rounded-full px-3.5 py-2">
                   {tag}
@@ -107,33 +119,34 @@ export default function SearchModal({ onClose }: Props) {
               <circle cx="11" cy="11" r="8" stroke="#1c1c1e" strokeWidth="1.5"/>
               <path d="M21 21l-4.35-4.35" stroke="#1c1c1e" strokeWidth="2" strokeLinecap="round"/>
             </svg>
-            <div className="font-serif text-[20px] text-black mb-1">No results for "{query}"</div>
+            <div className="font-serif text-[20px] text-black mb-1">No results for &ldquo;{query}&rdquo;</div>
             <div className="font-satoshi text-[14px] text-gray-400">Try a different destination, country, or vibe</div>
           </div>
         )}
 
         {results.length > 0 && (
           <div className="px-5 pt-3">
-            <div className="font-satoshi text-[12px] font-600 text-gray-400 uppercase tracking-wider mb-3">{results.length} destinations</div>
+            <div className="font-satoshi text-[12px] font-600 text-gray-400 uppercase tracking-wider mb-3">{results.length} result{results.length !== 1 ? "s" : ""}</div>
             <div className="space-y-3">
               {results.map(d => (
-                <button key={d.name} onClick={() => setQuery(d.name)}
-                  className="w-full flex items-center gap-3 border border-gray-100 rounded-2xl overflow-hidden shadow-[0_1px_6px_rgba(0,0,0,0.04)] text-left">
-                  <div className="w-[80px] h-[72px] flex-shrink-0">
+                <div key={d.name}
+                  className="w-full flex items-stretch border border-gray-100 rounded-2xl overflow-hidden shadow-[0_1px_6px_rgba(0,0,0,0.04)] text-left">
+                  <div className="w-[80px] flex-shrink-0">
                     <img src={d.photo} alt={d.name} className="w-full h-full object-cover" />
                   </div>
-                  <div className="flex-1 py-2 pr-3">
+                  <div className="flex-1 py-3 px-3">
                     <div className="font-serif text-[17px] text-black leading-snug">{d.name}</div>
                     <div className="font-satoshi text-[12px] text-gray-400">{d.country}</div>
-                    <div className="flex gap-1.5 mt-1 flex-wrap">
+                    <div className="flex gap-1.5 mt-1.5 flex-wrap">
                       {d.tags.slice(0,3).map(t => (
                         <span key={t} className="font-satoshi text-[10px] font-500 text-gray-500 bg-[#f5f5f5] rounded-full px-2 py-0.5">{t}</span>
                       ))}
                     </div>
                   </div>
-                </button>
+                </div>
               ))}
             </div>
+            <div className="h-8"/>
           </div>
         )}
       </div>
