@@ -4,7 +4,20 @@ import { useState } from "react";
 export interface Dest { id: string; name: string; country: string; tags: string[]; photo: string; }
 interface Props { dest: Dest; onBack: () => void; }
 
-const destTabs = ["Overview","Hotels","Restaurants","Things to do","Flights","Rentals"];
+const destTabs = ["Overview","Hotels","Restaurants","Things to do","Rentals"];
+
+// ── Provided food images (contextual) ──
+const FOOD = {
+  breakfast: "https://i.pinimg.com/1200x/a1/fe/09/a1fe09adad1542dab4618e8a96bb27d5.jpg",
+  ramen:     "https://i.pinimg.com/1200x/dd/80/48/dd8048c9b412d1f22b5362a311e7dee4.jpg",
+  shrimp:    "https://i.pinimg.com/1200x/8f/75/53/8f7553ae96ad48825c362566e9887d35.jpg",
+  drink:     "https://i.pinimg.com/1200x/ff/81/2e/ff812eeb3de47219fd44bb24ca5533a4.jpg",
+  coffee:    "https://i.pinimg.com/1200x/5c/7e/7b/5c7e7ba33ff497234805fe5c5dbbc6ae.jpg",
+  icecream:  "https://i.pinimg.com/1200x/ed/f0/cd/edf0cda924a1bdcc9548b6ca8b6e30bf.jpg",
+  donuts:    "https://i.pinimg.com/1200x/ae/f4/dc/aef4dc0535185d99a9feb4da5077e347.jpg",
+  grocery:   "https://i.pinimg.com/1200x/3c/18/8d/3c188db938673ae540873707c32c22e7.jpg",
+  arcade:    "https://i.pinimg.com/1200x/33/45/ab/3345ab614c1b3ebb68c60919ca50cb2b.jpg",
+};
 
 // ── Per-destination data ──────────────────────────────────────────────
 type Hotel = { name: string; rating: number; reviews: number; amenity: string; price: string; photo: string };
@@ -29,10 +42,10 @@ const DATA: Record<string, DestData> = {
       { name:"Tigre Delta Boat Cruise", type:"Nature", rating:4.6, reviews:2540, price:"from $38", photo:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
     ],
     restaurants:[
-      { name:"Don Julio Parrilla", cuisine:"Argentinian Steakhouse", rating:4.9, reviews:12400, price:"$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-      { name:"El Obrero", cuisine:"Traditional Bodegón", rating:4.7, reviews:5820, price:"$$", photo:"https://i.pinimg.com/1200x/93/2c/d8/932cd838a96c258d43c96d0826b40f3d.jpg" },
-      { name:"Florería Atlántico", cuisine:"Cocktail Bar & Modern", rating:4.8, reviews:3190, price:"$$$", photo:"https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" },
-      { name:"Café Tortoni", cuisine:"Historic Café", rating:4.6, reviews:9870, price:"$", photo:"https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg" },
+      { name:"Don Julio Parrilla", cuisine:"Argentinian Steakhouse", rating:4.9, reviews:12400, price:"$$$", photo:FOOD.shrimp },
+      { name:"El Obrero", cuisine:"Traditional Bodegón", rating:4.7, reviews:5820, price:"$$", photo:FOOD.drink },
+      { name:"Florería Atlántico", cuisine:"Cocktail Bar & Modern", rating:4.8, reviews:3190, price:"$$$", photo:FOOD.coffee },
+      { name:"Café Tortoni", cuisine:"Historic Café · Est. 1858", rating:4.6, reviews:9870, price:"$", photo:FOOD.breakfast },
     ],
     flights:[
       { from:"New York (JFK)", airline:"LATAM Airlines", duration:"10h 30m", stops:"Non-stop", price:"$980", dept:"08:30", arr:"22:00" },
@@ -57,9 +70,10 @@ const DATA: Record<string, DestData> = {
       { name:"SUP & Kayak Rental", type:"Water Sport", rating:4.6, reviews:1820, price:"Free (resort)", photo:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
     ],
     restaurants:[
-      { name:"Ithaa Undersea Restaurant", cuisine:"Fine Dining · Underwater", rating:4.9, reviews:6210, price:"$$$$", photo:"https://i.pinimg.com/1200x/89/92/da/8992da97b30bd7a97c12cae8d68fd4a2.jpg" },
-      { name:"Meeru Café — Local Island", cuisine:"Maldivian · Seafood", rating:4.5, reviews:2100, price:"$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
-      { name:"The Lighthouse", cuisine:"International · Beachfront", rating:4.7, reviews:3820, price:"$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
+      { name:"Ithaa Undersea Restaurant", cuisine:"Fine Dining · Underwater", rating:4.9, reviews:6210, price:"$$$$", photo:FOOD.shrimp },
+      { name:"Meeru Café — Local Island", cuisine:"Maldivian · Seafood", rating:4.5, reviews:2100, price:"$", photo:FOOD.drink },
+      { name:"The Lighthouse", cuisine:"International · Beachfront", rating:4.7, reviews:3820, price:"$$$", photo:FOOD.icecream },
+      { name:"Sand Bar", cuisine:"Cocktails & Light bites", rating:4.6, reviews:1840, price:"$$", photo:FOOD.coffee },
     ],
     flights:[
       { from:"New York (JFK)", airline:"Emirates via Dubai", duration:"16h 40m", stops:"1 stop (DXB)", price:"$1,240", dept:"10:05", arr:"06:45+1" },
@@ -84,9 +98,10 @@ const DATA: Record<string, DestData> = {
       { name:"GoldenPass Scenic Rail", type:"Transport", rating:4.9, reviews:14200, price:"from $58", photo:"https://i.pinimg.com/1200x/57/5a/0c/575a0c80aa5953a97f41681612fc56c8.jpg" },
     ],
     restaurants:[
-      { name:"Tüfi Stübli", cuisine:"Swiss · Raclette & Fondue", rating:4.8, reviews:3840, price:"$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-      { name:"Restaurant Schuh", cuisine:"Swiss · Traditional", rating:4.6, reviews:5210, price:"$$", photo:"https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg" },
-      { name:"Lindt Swiss Chocolate Heaven", cuisine:"Café · Desserts", rating:4.7, reviews:9810, price:"$", photo:"https://i.pinimg.com/1200x/93/2c/d8/932cd838a96c258d43c96d0826b40f3d.jpg" },
+      { name:"Tüfi Stübli", cuisine:"Swiss · Raclette & Fondue", rating:4.8, reviews:3840, price:"$$", photo:FOOD.shrimp },
+      { name:"Restaurant Schuh", cuisine:"Swiss · Traditional Breakfast", rating:4.6, reviews:5210, price:"$$", photo:FOOD.breakfast },
+      { name:"Lindt Swiss Chocolate Heaven", cuisine:"Café · Desserts & Hot Choc", rating:4.7, reviews:9810, price:"$", photo:FOOD.donuts },
+      { name:"Viktoria Café Interlaken", cuisine:"Coffee & Pastries", rating:4.5, reviews:3120, price:"$", photo:FOOD.coffee },
     ],
     flights:[
       { from:"New York (JFK)", airline:"Swiss International Air", duration:"8h 15m", stops:"Non-stop", price:"$980", dept:"19:10", arr:"09:25+1" },
@@ -111,10 +126,10 @@ const DATA: Record<string, DestData> = {
       { name:"⚽ FIFA World Cup 2026 — MetLife", type:"Sports", rating:5.0, reviews:1200, price:"from $85", photo:"https://i.pinimg.com/736x/68/9f/86/689f8682ab5151f43aa6d1abfb11d885.jpg" },
     ],
     restaurants:[
-      { name:"Shake Shack — Madison Sq Park", cuisine:"American · Burgers", rating:4.7, reviews:34100, price:"$", photo:"https://i.pinimg.com/1200x/93/2c/d8/932cd838a96c258d43c96d0826b40f3d.jpg" },
-      { name:"Russ & Daughters", cuisine:"Jewish Deli · Brunch", rating:4.9, reviews:8210, price:"$$", photo:"https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg" },
-      { name:"Carbone", cuisine:"Italian-American · Fine dining", rating:4.8, reviews:12400, price:"$$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-      { name:"Ess-a-Bagel", cuisine:"New York Bagels", rating:4.8, reviews:18900, price:"$", photo:"https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg" },
+      { name:"Shake Shack — Madison Sq Park", cuisine:"American · Burgers", rating:4.7, reviews:34100, price:"$", photo:FOOD.drink },
+      { name:"Russ & Daughters", cuisine:"Jewish Deli · Brunch", rating:4.9, reviews:8210, price:"$$", photo:FOOD.breakfast },
+      { name:"Carbone", cuisine:"Italian-American · Fine dining", rating:4.8, reviews:12400, price:"$$$$", photo:FOOD.shrimp },
+      { name:"Ess-a-Bagel", cuisine:"New York Bagels & Coffee", rating:4.8, reviews:18900, price:"$", photo:FOOD.coffee },
     ],
     flights:[
       { from:"Los Angeles (LAX)", airline:"Delta Air Lines", duration:"5h 15m", stops:"Non-stop", price:"$220", dept:"07:00", arr:"15:15" },
@@ -139,9 +154,10 @@ const DATA: Record<string, DestData> = {
       { name:"Geisha District Walk — Gion", type:"History", rating:4.8, reviews:18200, price:"Free", photo:"https://i.pinimg.com/1200x/c0/46/bb/c046bb1351a1297b012cbb996cdc9836.jpg" },
     ],
     restaurants:[
-      { name:"Mizai", cuisine:"Kaiseki · Michelin 3★", rating:5.0, reviews:1240, price:"$$$$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
-      { name:"Nishiki Market", cuisine:"Street Food · Local", rating:4.7, reviews:24100, price:"$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
-      { name:"Omen Noodles", cuisine:"Japanese · Udon", rating:4.6, reviews:5810, price:"$$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
+      { name:"Mizai", cuisine:"Kaiseki · Michelin 3★", rating:5.0, reviews:1240, price:"$$$$", photo:FOOD.shrimp },
+      { name:"Nishiki Market", cuisine:"Japanese Street Food", rating:4.7, reviews:24100, price:"$", photo:FOOD.ramen },
+      { name:"Omen Noodles", cuisine:"Japanese · Udon & Soba", rating:4.6, reviews:5810, price:"$$", photo:FOOD.drink },
+      { name:"% Arabica", cuisine:"Specialty Coffee · Higashiyama", rating:4.8, reviews:18200, price:"$", photo:FOOD.coffee },
     ],
     flights:[
       { from:"New York (JFK)", airline:"Japan Airlines via Tokyo", duration:"14h 30m", stops:"1 stop (NRT)", price:"$1,100", dept:"12:30", arr:"16:00+1" },
@@ -166,9 +182,10 @@ const DATA: Record<string, DestData> = {
       { name:"Sacsayhuamán Ruins", type:"History", rating:4.7, reviews:24100, price:"$20", photo:"https://i.pinimg.com/736x/52/64/be/5264be0299957c5ceb6dca23b014c05f.jpg" },
     ],
     restaurants:[
-      { name:"Central Restaurante", cuisine:"Peruvian · Michelin", rating:5.0, reviews:4810, price:"$$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-      { name:"Chicha por Gastón Acurio", cuisine:"Modern Peruvian", rating:4.8, reviews:6210, price:"$$$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
-      { name:"Mercado San Pedro", cuisine:"Local Market · Street food", rating:4.6, reviews:18400, price:"$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
+      { name:"Central Restaurante", cuisine:"Peruvian · Michelin", rating:5.0, reviews:4810, price:"$$$$", photo:FOOD.shrimp },
+      { name:"Chicha por Gastón Acurio", cuisine:"Modern Peruvian", rating:4.8, reviews:6210, price:"$$$", photo:FOOD.drink },
+      { name:"Mercado San Pedro", cuisine:"Local Market · Street food", rating:4.6, reviews:18400, price:"$", photo:FOOD.breakfast },
+      { name:"El Encuentro", cuisine:"Peruvian Café & Coffee", rating:4.5, reviews:3840, price:"$", photo:FOOD.coffee },
     ],
     flights:[
       { from:"New York (JFK)", airline:"LATAM via Lima", duration:"9h 30m", stops:"1 stop (LIM)", price:"$820", dept:"23:15", arr:"12:45+1" },
@@ -193,9 +210,10 @@ const DATA: Record<string, DestData> = {
       { name:"White Water Rafting — Ayung", type:"Adventure", rating:4.7, reviews:9810, price:"from $35", photo:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
     ],
     restaurants:[
-      { name:"Locavore", cuisine:"Modern Indonesian · Michelin", rating:4.9, reviews:8210, price:"$$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-      { name:"Naughty Nuri's Warung", cuisine:"BBQ Ribs · Local", rating:4.6, reviews:18400, price:"$$", photo:"https://i.pinimg.com/1200x/93/2c/d8/932cd838a96c258d43c96d0826b40f3d.jpg" },
-      { name:"Kakiang Bakery", cuisine:"Café · Breakfast", rating:4.5, reviews:6810, price:"$", photo:"https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg" },
+      { name:"Locavore", cuisine:"Modern Indonesian · Michelin", rating:4.9, reviews:8210, price:"$$$$", photo:FOOD.shrimp },
+      { name:"Naughty Nuri's Warung", cuisine:"BBQ Ribs · Local Warung", rating:4.6, reviews:18400, price:"$$", photo:FOOD.drink },
+      { name:"Kakiang Bakery", cuisine:"Café · Pastries & Breakfast", rating:4.5, reviews:6810, price:"$", photo:FOOD.coffee },
+      { name:"Kopi Desa", cuisine:"Balinese Coffee & Snacks", rating:4.4, reviews:4120, price:"$", photo:FOOD.icecream },
     ],
     flights:[
       { from:"New York (JFK)", airline:"Singapore Airlines via SIN", duration:"22h 30m", stops:"1 stop (SIN)", price:"$1,100", dept:"12:00", arr:"21:30+1" },
@@ -222,8 +240,9 @@ const FALLBACK: DestData = {
     { name:"Sunset Viewpoint Hike", type:"Outdoor", rating:4.8, reviews:1890, price:"from $18", photo:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
   ],
   restaurants:[
-    { name:"The Local Table", cuisine:"Contemporary · Farm-to-table", rating:4.7, reviews:3210, price:"$$$", photo:"https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg" },
-    { name:"Street Market Eats", cuisine:"Local · Street food", rating:4.6, reviews:8410, price:"$", photo:"https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg" },
+    { name:"The Local Table", cuisine:"Contemporary · Farm-to-table", rating:4.7, reviews:3210, price:"$$$", photo:FOOD.shrimp },
+    { name:"Street Market Eats", cuisine:"Local · Street food", rating:4.6, reviews:8410, price:"$", photo:FOOD.ramen },
+    { name:"The Coffee Corner", cuisine:"Café · Breakfast & Brunch", rating:4.5, reviews:2840, price:"$", photo:FOOD.coffee },
   ],
   flights:[
     { from:"New York (JFK)", airline:"Various airlines", duration:"8–14h", stops:"1 stop", price:"$680", dept:"Various", arr:"Various" },
@@ -401,44 +420,6 @@ export default function DestinationDetail({ dest, onBack }: Props) {
                 </div>
                 <div className="font-satoshi text-[13px] font-600 text-gray-900 mt-1">{a.price}</div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Flights */}
-      {activeTab === "Flights" && (
-        <div className="px-5 pt-4 space-y-4 pb-8">
-          <p className="font-satoshi text-[13px] text-gray-500">Best flights to <span className="font-600 text-gray-900">{dest.name}</span></p>
-          {data.flights.map((f, i) => (
-            <div key={i} className="border border-gray-100 rounded-2xl p-4 shadow-[0_1px_6px_rgba(0,0,0,0.05)]">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <div className="font-satoshi text-[12px] text-gray-400">From</div>
-                  <div className="font-satoshi text-[14px] font-700 text-gray-900">{f.from}</div>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-satoshi text-[11px] text-gray-400">{f.duration}</span>
-                  <div className="flex items-center gap-1 my-0.5">
-                    <div className="w-6 h-px bg-gray-300"/>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#1c1c1e" strokeWidth="2" strokeLinecap="round"/></svg>
-                    <div className="w-6 h-px bg-gray-300"/>
-                  </div>
-                  <span className="font-satoshi text-[10px] text-gray-400">{f.stops}</span>
-                </div>
-                <div className="text-right">
-                  <div className="font-serif text-[22px] text-black leading-none">{f.price}</div>
-                  <div className="font-satoshi text-[11px] text-gray-400">return</div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className="text-[14px]">✈️</span>
-                  <span className="font-satoshi text-[12px] text-gray-600">{f.airline}</span>
-                </div>
-                <div className="font-satoshi text-[12px] text-gray-500">{f.dept} → {f.arr}</div>
-              </div>
-              <button className="w-full mt-3 py-2.5 bg-black text-white font-satoshi text-[14px] font-600 rounded-xl">Select flight</button>
             </div>
           ))}
         </div>

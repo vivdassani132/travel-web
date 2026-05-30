@@ -5,9 +5,8 @@ import DestinationDetail, { type Dest } from "../DestinationDetail";
 
 const categories = [
   { label:"Hotels",           icon:"🏨", query:"Hotel" },
-  { label:"Things to Do",    icon:"🎯", query:"Hiking" },
   { label:"Restaurants",     icon:"🍽️", query:"Food" },
-  { label:"Flights",         icon:"✈️", query:"flight" },
+  { label:"Things to Do",    icon:"🎯", query:"Hiking" },
   { label:"Vacation Rentals",icon:"🏡", query:"Rental" },
 ];
 

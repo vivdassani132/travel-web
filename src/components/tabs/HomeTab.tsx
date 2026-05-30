@@ -19,8 +19,10 @@ const IMGS = {
   beach:      "https://i.pinimg.com/1200x/39/96/1b/39961ba2482a782a93a5e9115547cfae.jpg",
   desert:     "https://i.pinimg.com/1200x/d6/2e/b0/d62eb01dd273ed5bb9fb30659314bc7f.jpg",
   diner:      "https://i.pinimg.com/1200x/8d/7e/b5/8d7eb541a065dd9e77819f306ab5b829.jpg",
-  breakfast:  "https://i.pinimg.com/1200x/93/b1/29/93b1298920b9e6fdb1d5b9a9610fde09.jpg",
+  breakfast:  "https://i.pinimg.com/1200x/a1/fe/09/a1fe09adad1542dab4618e8a96bb27d5.jpg",
   burger:     "https://i.pinimg.com/1200x/93/2c/d8/932cd838a96c258d43c96d0826b40f3d.jpg",
+  ramen:      "https://i.pinimg.com/1200x/dd/80/48/dd8048c9b412d1f22b5362a311e7dee4.jpg",
+  coffee:     "https://i.pinimg.com/1200x/5c/7e/7b/5c7e7ba33ff497234805fe5c5dbbc6ae.jpg",
   busNight:   "https://i.pinimg.com/736x/e5/0e/c9/e50ec9c6610d22c43f35ba8dea192a64.jpg",
   streetFood: "https://i.pinimg.com/1200x/aa/70/7a/aa707a29321e92bc8d980346aec465e9.jpg",
 };
