@@ -263,42 +263,130 @@ const TRIPS: Record<string, Trip> = {
 
 const DEFAULT_TRIP = TRIPS["Coastal & Ocean"] || Object.values(TRIPS)[0];
 
-// Soccer images (3 provided — used exclusively for football events)
+// Soccer images
 const SOCCER = [
   "https://i.pinimg.com/736x/27/c8/74/27c87463c7f93c03a5f9aae392e82b7c.jpg",
   "https://i.pinimg.com/736x/46/6d/43/466d437cbf3411d7b8001ce8239497a1.jpg",
   "https://i.pinimg.com/736x/68/9f/86/689f8682ab5151f43aa6d1abfb11d885.jpg",
 ];
+// Stadium images
+const STADIUM = [
+  "https://i.pinimg.com/1200x/f1/17/81/f11781b18dbde033dad6e506ef6e1262.jpg",
+  "https://i.pinimg.com/1200x/2f/66/1e/2f661e6aa6950ae06fa5ebe006619817.jpg",
+];
 
-type Event = { label: string; sub: string; date: string; tag: string; img: string; fifa?: boolean };
+type TicketTier = { tier: string; price: string; desc: string };
+type FIFAMatch = {
+  match: string; flag1: string; flag2: string;
+  venue: string; city: string; date: string; kickoff: string;
+  capacity: string; stadiumImg: string;
+  tickets: TicketTier[];
+};
+type Event = { label: string; sub: string; date: string; tag: string; img: string; fifa?: FIFAMatch };
+
+const FIFA_MATCHES: Record<string, FIFAMatch> = {
+  "metlife-group": {
+    match:"Group Stage — TBD", flag1:"🌍", flag2:"🌎",
+    venue:"MetLife Stadium", city:"East Rutherford, New Jersey",
+    date:"June 14–30, 2026", kickoff:"Various",
+    capacity:"82,500", stadiumImg:STADIUM[0],
+    tickets:[
+      { tier:"Hospitality Suite", price:"$2,800", desc:"Premium lounge, 5-course dining, pitch-side seats" },
+      { tier:"Premium — Category 1", price:"$850", desc:"Best views, central lower tier, fast-track entry" },
+      { tier:"Standard — Category 2", price:"$340", desc:"Side lower tier, great atmosphere" },
+      { tier:"Fan Zone — Category 3", price:"$120", desc:"End stand, loud crowd, best energy" },
+    ],
+  },
+  "usa-argentina": {
+    match:"USA vs Argentina", flag1:"🇺🇸", flag2:"🇦🇷",
+    venue:"MetLife Stadium", city:"East Rutherford, New Jersey",
+    date:"June 15, 2026", kickoff:"20:00 ET",
+    capacity:"82,500", stadiumImg:STADIUM[0],
+    tickets:[
+      { tier:"Hospitality Suite", price:"$3,500", desc:"Premium lounge, pitch-side, 5-course dining" },
+      { tier:"Premium — Category 1", price:"$1,200", desc:"Central lower tier, best views, fast-track entry" },
+      { tier:"Standard — Category 2", price:"$480", desc:"Side lower tier, great atmosphere" },
+      { tier:"Fan Zone — Category 3", price:"$185", desc:"End stand, loudest section" },
+    ],
+  },
+  "fifa-final": {
+    match:"FIFA World Cup Final 🏆", flag1:"🏆", flag2:"🏆",
+    venue:"MetLife Stadium", city:"East Rutherford, New Jersey",
+    date:"July 19, 2026", kickoff:"18:00 ET",
+    capacity:"82,500", stadiumImg:STADIUM[1],
+    tickets:[
+      { tier:"VIP Hospitality", price:"$8,500", desc:"President's Suite, Champagne, private viewing" },
+      { tier:"Premium — Category 1", price:"$2,800", desc:"Central lower tier, unforgettable view" },
+      { tier:"Standard — Category 2", price:"$950", desc:"Side stands, amazing atmosphere" },
+      { tier:"Fan Zone — Category 3", price:"$380", desc:"End stand, history in the making" },
+    ],
+  },
+  "france-spain": {
+    match:"France vs Spain", flag1:"🇫🇷", flag2:"🇪🇸",
+    venue:"AT&T Stadium", city:"Arlington, Dallas, TX",
+    date:"June 23, 2026", kickoff:"19:00 CT",
+    capacity:"80,000", stadiumImg:STADIUM[1],
+    tickets:[
+      { tier:"Hospitality Suite", price:"$3,200", desc:"Club level lounge, catered, premium seats" },
+      { tier:"Premium — Category 1", price:"$980", desc:"Lower tier centre, best sightlines" },
+      { tier:"Standard — Category 2", price:"$390", desc:"Mid-tier side stands" },
+      { tier:"Fan Zone — Category 3", price:"$145", desc:"End stand, packed with fans" },
+    ],
+  },
+  "sofi-group": {
+    match:"Group Stage — Europe vs Americas", flag1:"🌍", flag2:"🌎",
+    venue:"SoFi Stadium", city:"Inglewood, Los Angeles, CA",
+    date:"June 2026", kickoff:"Various",
+    capacity:"70,240", stadiumImg:STADIUM[0],
+    tickets:[
+      { tier:"Hospitality Suite", price:"$2,600", desc:"Hollywood Hills view suite, catered" },
+      { tier:"Premium — Category 1", price:"$780", desc:"Lower tier, 50-yard line views" },
+      { tier:"Standard — Category 2", price:"$310", desc:"Upper mid tier, full pitch view" },
+      { tier:"Fan Zone — Category 3", price:"$110", desc:"End zone, best value" },
+    ],
+  },
+  "hardrock-group": {
+    match:"Group C Matches", flag1:"🌍", flag2:"🌎",
+    venue:"Hard Rock Stadium", city:"Miami Gardens, FL",
+    date:"June 2026", kickoff:"Various",
+    capacity:"65,326", stadiumImg:STADIUM[1],
+    tickets:[
+      { tier:"Hospitality Suite", price:"$2,400", desc:"Climate-controlled suite, full catering" },
+      { tier:"Premium — Category 1", price:"$720", desc:"Lower tier, excellent pitch views" },
+      { tier:"Standard — Category 2", price:"$285", desc:"Mid-tier, covered stands" },
+      { tier:"Fan Zone — Category 3", price:"$95", desc:"End zone, great energy" },
+    ],
+  },
+};
+
 const EVENTS: Record<string, Event[]> = {
   "Pampas & Steppe": [
     { label:"⚽ Boca vs River Plate", sub:"El Superclásico · La Bombonera", date:"Dec 28", tag:"Football", img:SOCCER[0] },
-    { label:"⚽ FIFA World Cup 2026", sub:"MetLife Stadium, New Jersey — 3 group matches", date:"Jun–Jul 2026", tag:"FIFA", img:SOCCER[1], fifa:true },
+    { label:"⚽ FIFA World Cup 2026", sub:"MetLife Stadium, New Jersey", date:"Jun–Jul 2026", tag:"FIFA", img:SOCCER[1], fifa:FIFA_MATCHES["metlife-group"] },
     { label:"Buenos Aires Tango Festival", sub:"Palermo · Annual world championship", date:"Dec 30", tag:"Culture", img:"https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" },
     { label:"Teatro Colón — Opera Night", sub:"World's top 5 opera houses", date:"Dec 29", tag:"Arts", img:"https://i.pinimg.com/1200x/19/a8/d8/19a8d8e4823bfe5c62e42ecd23d9555d.jpg" },
   ],
   "Coastal & Ocean": [
-    { label:"⚽ FIFA World Cup 2026", sub:"SoFi Stadium, Los Angeles — Group stage", date:"Jun 2026", tag:"FIFA", img:SOCCER[2], fifa:true },
+    { label:"⚽ FIFA World Cup 2026", sub:"SoFi Stadium, Los Angeles", date:"Jun 2026", tag:"FIFA", img:SOCCER[2], fifa:FIFA_MATCHES["sofi-group"] },
     { label:"Maldives Surf Pro", sub:"Sultans · WSL qualifying series", date:"Jan 6", tag:"Surf", img:"https://i.pinimg.com/1200x/ba/7f/75/ba7f75659c691101eb72929822d75bb0.jpg" },
     { label:"Underwater Photography Expo", sub:"Conrad Rangali Island Resort", date:"Jan 8", tag:"Photography", img:"https://i.pinimg.com/1200x/39/96/1b/39961ba2482a782a93a5e9115547cfae.jpg" },
     { label:"Manta Ray Night Dive", sub:"Hanifaru Bay UNESCO biosphere", date:"Jan 9", tag:"Nature", img:"https://i.pinimg.com/1200x/22/52/2f/22522f3a4c9c123606642adb5f13cbb4.jpg" },
   ],
   "Alpine & Highland": [
-    { label:"⚽ FIFA World Cup 2026", sub:"MetLife Stadium, New Jersey — Book now", date:"Jun–Jul 2026", tag:"FIFA", img:SOCCER[1], fifa:true },
+    { label:"⚽ FIFA World Cup 2026", sub:"MetLife Stadium, New Jersey", date:"Jun–Jul 2026", tag:"FIFA", img:SOCCER[1], fifa:FIFA_MATCHES["metlife-group"] },
     { label:"FIS Ski World Cup Wengen", sub:"Lauberhorn downhill · Oldest race in skiing", date:"Feb 3", tag:"Skiing", img:"https://i.pinimg.com/1200x/6e/7f/eb/6e7febf97b4eb37736d12347658b43c5.jpg" },
     { label:"Ice Magic Lucerne", sub:"Outdoor ice skating on Lake Lucerne", date:"Feb 5", tag:"Winter", img:"https://i.pinimg.com/1200x/fa/c8/04/fac80456650bd429dd4ae2f22adcc2c1.jpg" },
   ],
   "Rainforest & Jungle": [
     { label:"⚽ Brasileirão — Flamengo", sub:"Estádio do Maracanã, Rio de Janeiro", date:"Mar 9", tag:"Football", img:SOCCER[0] },
-    { label:"⚽ FIFA World Cup 2026", sub:"Hard Rock Stadium, Miami — Group C", date:"Jun 2026", tag:"FIFA", img:SOCCER[2], fifa:true },
+    { label:"⚽ FIFA World Cup 2026", sub:"Hard Rock Stadium, Miami", date:"Jun 2026", tag:"FIFA", img:SOCCER[2], fifa:FIFA_MATCHES["hardrock-group"] },
     { label:"Parintins Folklore Festival", sub:"Amazon's largest cultural event", date:"Mar 5", tag:"Culture", img:"https://i.pinimg.com/736x/3c/5b/a9/3c5ba90171601238cbd6f62058628569.jpg" },
     { label:"Amazon Jazz Festival", sub:"Teatro Amazonas, Manaus", date:"Mar 7", tag:"Music", img:"https://i.pinimg.com/1200x/d6/2e/b0/d62eb01dd273ed5bb9fb30659314bc7f.jpg" },
   ],
   "Urban Landscape": [
-    { label:"⚽ FIFA — USA vs Argentina", sub:"MetLife Stadium, New Jersey", date:"Jun 15 2026", tag:"FIFA", img:SOCCER[0], fifa:true },
-    { label:"⚽ FIFA World Cup Final", sub:"MetLife Stadium, New Jersey", date:"Jul 19 2026", tag:"FIFA", img:SOCCER[2], fifa:true },
-    { label:"⚽ FIFA — France vs Spain", sub:"AT&T Stadium, Dallas, TX", date:"Jun 23 2026", tag:"FIFA", img:SOCCER[1], fifa:true },
+    { label:"⚽ USA vs Argentina", sub:"MetLife Stadium, New Jersey", date:"Jun 15 2026", tag:"FIFA", img:SOCCER[0], fifa:FIFA_MATCHES["usa-argentina"] },
+    { label:"⚽ FIFA World Cup Final", sub:"MetLife Stadium, New Jersey", date:"Jul 19 2026", tag:"FIFA", img:SOCCER[2], fifa:FIFA_MATCHES["fifa-final"] },
+    { label:"⚽ France vs Spain", sub:"AT&T Stadium, Dallas, TX", date:"Jun 23 2026", tag:"FIFA", img:SOCCER[1], fifa:FIFA_MATCHES["france-spain"] },
     { label:"India Day Parade", sub:"Madison Ave · Bollywood floats & music", date:"Apr 14", tag:"Culture", img:"https://i.pinimg.com/1200x/45/c6/f1/45c6f1dd157d6f6699db863bf4542289.jpg" },
     { label:"NYC Chinatown Lunar New Year", sub:"Mott Street · Dragon parade & fireworks", date:"Apr 12", tag:"Culture", img:"https://i.pinimg.com/1200x/71/91/66/7191662a7e1dd0169dd344203a191225.jpg" },
   ],
@@ -320,6 +408,7 @@ export default function HomeTab() {
   const [showNotifs, setShowNotifs] = useState(false);
   const [detail, setDetail]   = useState<DiscoverDest | null>(null);
   const [activeDay, setActiveDay] = useState(0);
+  const [fifaGame, setFifaGame] = useState<FIFAMatch | null>(null);
   const [liked, setLiked] = useState<Set<string>>(() => {
     if (typeof window === "undefined") return new Set();
     try { return new Set(JSON.parse(localStorage.getItem("compass_liked")||"[]")); } catch { return new Set(); }
@@ -466,17 +555,23 @@ export default function HomeTab() {
             </div>
             <div className="flex gap-3 overflow-x-auto scrollbar-hide px-5 pb-1">
               {evts.map((ev, i) => (
-                <div key={i} className="flex-shrink-0 w-[200px] rounded-2xl overflow-hidden relative" style={{ height: 220 }}>
+                <button key={i} onClick={() => ev.fifa && setFifaGame(ev.fifa)}
+                  className="flex-shrink-0 w-[200px] rounded-2xl overflow-hidden relative text-left"
+                  style={{ height: 220 }}>
                   <img src={ev.img} alt={ev.label} className="w-full h-full object-cover"/>
                   <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.05) 85%)" }}/>
-                  {ev.fifa && (
+                  {ev.fifa ? (
                     <div className="absolute top-3 left-3 bg-white rounded-full px-2 py-0.5">
                       <span className="font-satoshi text-[9px] font-700 text-black tracking-wide">⚽ FIFA 2026</span>
                     </div>
-                  )}
-                  {!ev.fifa && (
+                  ) : (
                     <div className="absolute top-3 left-3 bg-white/90 rounded-full px-2 py-0.5">
                       <span className="font-satoshi text-[9px] font-600 text-gray-800">{ev.tag}</span>
+                    </div>
+                  )}
+                  {ev.fifa && (
+                    <div className="absolute top-3 right-3 bg-black/60 rounded-full px-2 py-0.5">
+                      <span className="font-satoshi text-[9px] text-white">Tap to book</span>
                     </div>
                   )}
                   <div className="absolute bottom-3 left-3 right-3">
@@ -484,7 +579,7 @@ export default function HomeTab() {
                     <div className="font-satoshi text-[11px] text-white/65 mt-0.5 leading-snug">{ev.sub}</div>
                     <div className="font-satoshi text-[10px] text-white/50 mt-1">{ev.date}</div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -522,6 +617,83 @@ export default function HomeTab() {
 
       {showSearch && <SearchModal onClose={() => setShowSearch(false)} onSelect={d => { setDetail(d); setShowSearch(false); }} />}
       {showNotifs && <NotificationsPanel onClose={() => setShowNotifs(false)} />}
+
+      {/* ── FIFA Game Detail Modal ── */}
+      {fifaGame && (
+        <div className="fixed inset-0 z-50 flex flex-col justify-end" style={{ maxWidth:430, left:"50%", transform:"translateX(-50%)" }}>
+          <div className="absolute inset-0 bg-black/50" onClick={() => setFifaGame(null)}/>
+          <div className="relative bg-white rounded-t-3xl overflow-hidden shadow-2xl" style={{ maxHeight:"88dvh" }}>
+            {/* Stadium hero */}
+            <div className="relative" style={{ height:200 }}>
+              <img src={fifaGame.stadiumImg} alt={fifaGame.venue} className="w-full h-full object-cover"/>
+              <div className="absolute inset-0" style={{ background:"linear-gradient(to top, rgba(0,0,0,0.75) 40%, rgba(0,0,0,0.1) 80%)" }}/>
+              <button onClick={() => setFifaGame(null)}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="white" strokeWidth="2.2" strokeLinecap="round"/></svg>
+              </button>
+              <div className="absolute top-3 left-4 bg-white rounded-full px-2.5 py-1">
+                <span className="font-satoshi text-[10px] font-700 text-black">⚽ FIFA World Cup 2026</span>
+              </div>
+              {/* Match teams */}
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="text-3xl">{fifaGame.flag1}</span>
+                  <span className="font-satoshi text-white/60 text-[13px]">vs</span>
+                  <span className="text-3xl">{fifaGame.flag2}</span>
+                </div>
+                <div className="font-serif text-white text-[22px] leading-tight">{fifaGame.match}</div>
+              </div>
+            </div>
+
+            {/* Scrollable content */}
+            <div className="overflow-y-auto scrollbar-hide" style={{ maxHeight:"calc(88dvh - 200px)" }}>
+              {/* Match info */}
+              <div className="px-5 py-4 border-b border-gray-100">
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label:"Venue", val:fifaGame.venue },
+                    { label:"City", val:fifaGame.city },
+                    { label:"Date", val:fifaGame.date },
+                    { label:"Kick-off", val:fifaGame.kickoff },
+                    { label:"Capacity", val:fifaGame.capacity+" seats" },
+                    { label:"Stage", val:"FIFA WC 2026" },
+                  ].map(info => (
+                    <div key={info.label}>
+                      <div className="font-satoshi text-[11px] text-gray-400">{info.label}</div>
+                      <div className="font-satoshi text-[13px] font-600 text-gray-900">{info.val}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Ticket tiers */}
+              <div className="px-5 pt-4 pb-2">
+                <div className="font-serif text-[20px] text-black mb-3">Select tickets</div>
+                <div className="space-y-3">
+                  {fifaGame.tickets.map((t, i) => (
+                    <div key={i} className="border border-gray-100 rounded-2xl p-4 shadow-[0_1px_6px_rgba(0,0,0,0.05)]">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="font-satoshi text-[14px] font-700 text-gray-900">{t.tier}</div>
+                          <div className="font-satoshi text-[12px] text-gray-500 mt-0.5 leading-snug">{t.desc}</div>
+                        </div>
+                        <div className="text-right ml-3 flex-shrink-0">
+                          <div className="font-serif text-[20px] text-black leading-none">{t.price}</div>
+                          <div className="font-satoshi text-[10px] text-gray-400">per ticket</div>
+                        </div>
+                      </div>
+                      <button className="w-full mt-3 py-2.5 bg-black text-white font-satoshi text-[13px] font-600 rounded-xl">
+                        Book {t.tier.split("—")[0].trim()}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                <div className="h-6"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
