@@ -1,90 +1,89 @@
 "use client";
 import { useState } from "react";
 import HomeTab from "./tabs/HomeTab";
-import ExploreTab from "./tabs/ExploreTab";
+import SearchTab from "./tabs/SearchTab";
 import TripsTab from "./tabs/TripsTab";
-import ChatTab from "./tabs/ChatTab";
-
-// iOS-style SVG tab icons
-const TabIcons = {
-  home: (filled: boolean) => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      {filled
-        ? <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z" fill="#1c1c1e"/>
-        : <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z" stroke="#8e8e93" strokeWidth="1.7" fill="none"/>
-      }
-      <path d="M9 21V12h6v9" stroke={filled ? "white" : "#8e8e93"} strokeWidth="1.7" strokeLinecap="round"/>
-    </svg>
-  ),
-  explore: (filled: boolean) => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke={filled ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.7" fill={filled ? "#1c1c1e" : "none"}/>
-      <path d="M16.5 7.5l-2.5 5-5 2.5 2.5-5 5-2.5z" fill={filled ? "white" : "#8e8e93"}/>
-    </svg>
-  ),
-  trips: (filled: boolean) => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect x="2" y="7" width="20" height="14" rx="2" stroke={filled ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.7" fill={filled ? "#1c1c1e" : "none"}/>
-      <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke={filled ? "white" : "#8e8e93"} strokeWidth="1.7"/>
-      <path d="M12 12v4M10 14h4" stroke={filled ? "white" : "#8e8e93"} strokeWidth="1.7" strokeLinecap="round"/>
-    </svg>
-  ),
-  chat: (filled: boolean) => (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      {filled
-        ? <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" fill="#1c1c1e"/>
-        : <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#8e8e93" strokeWidth="1.7" fill="none"/>
-      }
-      <path d="M8 10h8M8 13h5" stroke={filled ? "white" : "#8e8e93"} strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  ),
-};
+import ReviewTab from "./tabs/ReviewTab";
+import AccountTab from "./tabs/AccountTab";
 
 const tabs = [
-  { key: "home",    label: "Home" },
-  { key: "explore", label: "Explore" },
-  { key: "trips",   label: "Trips" },
-  { key: "chat",    label: "Chat" },
-] as const;
+  {
+    key: "home", label: "Home",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"
+          stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
+        <path d="M9 21V13h6v8" stroke={active ? "white" : "#8e8e93"} strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    key: "search", label: "Search",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="7.5" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8"/>
+        <path d="M21 21l-4.5-4.5" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="2" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    key: "trips", label: "Trips",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="8" width="20" height="13" rx="2" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
+        <path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8"/>
+        <path d="M2 13h20" stroke={active ? "white" : "#8e8e93"} strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
+    key: "review", label: "Review",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+          stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
+        {active && <path d="M8 10h8M8 13h5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>}
+      </svg>
+    ),
+  },
+  {
+    key: "account", label: "Account",
+    icon: (active: boolean) => (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
+        <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+];
 
-type TabKey = typeof tabs[number]["key"];
+type TabKey = "home"|"search"|"trips"|"review"|"account";
 
 export default function MainScreen() {
   const [tab, setTab] = useState<TabKey>("home");
 
   return (
     <div className="flex flex-col bg-white" style={{ height: "100dvh" }}>
-      {/* Content */}
-      <div className="flex-1 overflow-hidden relative">
+      <div className="flex-1 overflow-hidden">
         {tab === "home"    && <HomeTab />}
-        {tab === "explore" && <ExploreTab />}
+        {tab === "search"  && <SearchTab />}
         {tab === "trips"   && <TripsTab />}
-        {tab === "chat"    && <ChatTab />}
+        {tab === "review"  && <ReviewTab />}
+        {tab === "account" && <AccountTab />}
       </div>
 
-      {/* Floating tab bar */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-7 px-8 z-40 pointer-events-none">
-        <div
-          className="flex w-full rounded-[28px] pointer-events-auto"
-          style={{
-            background: "rgba(255,255,255,0.92)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            boxShadow: "0 4px 30px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.06)",
-            padding: "6px 4px",
-          }}
-        >
+      {/* Flat bottom tab bar — matches TripAdvisor */}
+      <div className="flex-shrink-0 bg-white border-t border-gray-200">
+        <div className="flex">
           {tabs.map(t => {
             const isActive = tab === t.key;
-            const Icon = TabIcons[t.key];
             return (
               <button
                 key={t.key}
-                onClick={() => setTab(t.key)}
-                className="flex-1 flex flex-col items-center justify-center gap-1 py-1.5 transition-opacity"
-                style={{ opacity: isActive ? 1 : 0.5 }}
+                onClick={() => setTab(t.key as TabKey)}
+                className="flex-1 flex flex-col items-center justify-center py-2 gap-0.5"
               >
-                {Icon(isActive)}
+                {t.icon(isActive)}
                 <span
                   className="text-[10px] font-medium"
                   style={{ color: isActive ? "#1c1c1e" : "#8e8e93" }}
@@ -94,6 +93,10 @@ export default function MainScreen() {
               </button>
             );
           })}
+        </div>
+        {/* iOS home indicator */}
+        <div className="flex justify-center pb-1 pt-0.5">
+          <div className="w-[120px] h-1 rounded-full bg-gray-200" />
         </div>
       </div>
     </div>
