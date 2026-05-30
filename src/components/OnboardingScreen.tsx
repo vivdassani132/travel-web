@@ -14,9 +14,9 @@ const stepImages = [
 const steps = [
   {
     q: "What kind of traveller are you?",
-    hint: "Pick the one that fits best.",
+    hint: "Pick all that resonate.",
     key: "travelStyle" as const,
-    multi: false,
+    multi: true,
     options: [
       { label: "Adventurer", desc: "Surf, hike, skydive — you live for it" },
       { label: "Explorer", desc: "Hidden gems, local spots, off the map" },
@@ -68,9 +68,9 @@ const steps = [
   },
   {
     q: "Where do you like to stay?",
-    hint: "Sets the whole tone of your trip.",
+    hint: "Pick all you'd be happy with.",
     key: "accommodation" as const,
-    multi: false,
+    multi: true,
     options: [
       { label: "Hotel", desc: "Comfort and full service" },
       { label: "Airbnb", desc: "Local feel, your own space" },
@@ -89,26 +89,39 @@ export default function OnboardingScreen() {
   const [connectPhase, setConnectPhase] = useState<null|'instagram'|'groupchat'|'loading'>(null);
   const current = steps[step];
 
-  const getValue = () =>
-    current.key === "interests" ? profile.interests : (profile[current.key as keyof typeof profile] as string);
+  const getValue = () => {
+    if (current.key === "interests") return profile.interests;
+    const val = profile[current.key as keyof typeof profile] as string;
+    if (current.multi) return val ? val.split("||") : [];
+    return val;
+  };
 
   const canContinue = current.multi
-    ? (getValue() as string[]).length > 0
+    ? (current.key === "interests" ? profile.interests.length > 0 : (getValue() as string[]).length > 0)
     : !!(getValue() as string);
 
   const handleSelect = (label: string) => {
-    if (current.multi) {
+    if (current.key === "interests") {
       const arr = [...profile.interests];
       const idx = arr.indexOf(label);
       if (idx >= 0) arr.splice(idx, 1); else arr.push(label);
       setProfile({ interests: arr });
+    } else if (current.multi) {
+      const val = profile[current.key as keyof typeof profile] as string;
+      const arr = val ? val.split("||") : [];
+      const idx = arr.indexOf(label);
+      if (idx >= 0) arr.splice(idx, 1); else arr.push(label);
+      setProfile({ [current.key]: arr.join("||") });
     } else {
       setProfile({ [current.key]: label });
     }
   };
 
-  const isSelected = (label: string) =>
-    current.multi ? profile.interests.includes(label) : getValue() === label;
+  const isSelected = (label: string) => {
+    if (current.key === "interests") return profile.interests.includes(label);
+    if (current.multi) return (getValue() as string[]).includes(label);
+    return getValue() === label;
+  };
 
   const next = () => {
     if (step < steps.length - 1) setStep(s => s + 1);
