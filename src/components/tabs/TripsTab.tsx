@@ -50,7 +50,7 @@ export default function TripsTab() {
                 <div className="relative" style={{ height: 160 }}>
                   <img src={t.photo} alt={t.name} className="w-full h-full object-cover" />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 35%, transparent)" }} />
-                  <div className="absolute top-3 left-3 bg-[#00AA6C] rounded-full px-2.5 py-1">
+                  <div className="absolute top-3 left-3 bg-[#000000] rounded-full px-2.5 py-1">
                     <span className="text-white text-[11px] font-semibold">{t.status}</span>
                   </div>
                   <div className="absolute bottom-3 left-4">
@@ -70,11 +70,11 @@ export default function TripsTab() {
                     </div>
                     <div>
                       <div className="text-[12px] text-gray-400">Status</div>
-                      <div className="text-[14px] font-semibold text-[#00AA6C]">Confirmed</div>
+                      <div className="text-[14px] font-semibold text-[#000000]">Confirmed</div>
                     </div>
                   </div>
                   <div className="h-1.5 bg-[#f2f2f7] rounded-full overflow-hidden mb-3">
-                    <div className="h-full bg-[#00AA6C] rounded-full" style={{ width: "60%" }} />
+                    <div className="h-full bg-[#000000] rounded-full" style={{ width: "60%" }} />
                   </div>
                   <div className="flex gap-2">
                     <button className="flex-1 py-2.5 rounded-xl text-[13px] font-medium text-gray-700 bg-[#f2f2f7]">Details</button>
@@ -98,11 +98,11 @@ export default function TripsTab() {
                   <div className="text-[12px] text-gray-400">{t.country} · {t.date}</div>
                   <div className="flex gap-0.5 mt-1">
                     {[1,2,3,4,5].map(s => (
-                      <div key={s} className="w-2.5 h-2.5 rounded-full" style={{ background: s <= t.rating ? "#00AA6C" : "#d1d1d6" }} />
+                      <div key={s} className="w-2.5 h-2.5 rounded-full" style={{ background: s <= t.rating ? "#000000" : "#d1d1d6" }} />
                     ))}
                   </div>
                 </div>
-                <button className="text-[12px] font-semibold text-[#00AA6C] border border-[#00AA6C] rounded-full px-3 py-1.5">Review</button>
+                <button className="text-[12px] font-semibold text-[#000000] border border-[#000000] rounded-full px-3 py-1.5">Review</button>
               </div>
             ))}
           </div>

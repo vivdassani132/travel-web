@@ -41,7 +41,7 @@ export default function ReviewTab() {
           <div className="flex gap-2 mb-4">
             {[1,2,3,4,5].map(s => (
               <button key={s} onClick={() => setRating(s)} className="flex-1 h-10 rounded-xl flex items-center justify-center text-xl"
-                style={{ background: s <= rating ? "#00AA6C" : "#e5e5ea" }}>
+                style={{ background: s <= rating ? "#000000" : "#e5e5ea" }}>
                 <span style={{ filter: s <= rating ? "brightness(10)" : "none" }}>●</span>
               </button>
             ))}

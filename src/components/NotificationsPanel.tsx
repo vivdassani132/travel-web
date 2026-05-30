@@ -15,7 +15,7 @@ type IconMap = Record<IconType, React.ReactElement>;
 function Icon({ type }: { type: IconType }) {
   const icons: IconMap = {
     heart: <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff2d55"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>,
-    tag:   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="#00AA6C" strokeWidth="2"/><circle cx="7" cy="7" r="1.5" fill="#00AA6C"/></svg>,
+    tag:   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="#000000" strokeWidth="2"/><circle cx="7" cy="7" r="1.5" fill="#000000"/></svg>,
     users: <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#007AFF" strokeWidth="2" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="#007AFF" strokeWidth="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#007AFF" strokeWidth="2" strokeLinecap="round"/></svg>,
     star:  <svg width="14" height="14" viewBox="0 0 24 24" fill="#f5a623"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>,
     map:   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#8b5cf6" strokeWidth="2"/><circle cx="12" cy="9" r="2.5" fill="#8b5cf6"/></svg>,
@@ -45,7 +45,7 @@ export default function NotificationsPanel({ onClose }: Props) {
               <span className="ml-2 font-satoshi text-[12px] font-600 text-white bg-black rounded-full px-2 py-0.5">{unreadCount} new</span>
             )}
           </div>
-          <button onClick={onClose} className="font-satoshi text-[14px] font-500 text-[#00AA6C]">
+          <button onClick={onClose} className="font-satoshi text-[14px] font-500 text-[#000000]">
             Mark all read
           </button>
         </div>

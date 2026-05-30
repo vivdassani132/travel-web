@@ -86,6 +86,7 @@ type StepOption = { label: string; desc?: string; photo?: string };
 export default function OnboardingScreen() {
   const { setScreen, setProfile, profile } = useStore();
   const [step, setStep] = useState(0);
+  const [connectPhase, setConnectPhase] = useState<null|'instagram'|'groupchat'|'loading'>(null);
   const current = steps[step];
 
   const getValue = () =>
@@ -111,10 +112,92 @@ export default function OnboardingScreen() {
 
   const next = () => {
     if (step < steps.length - 1) setStep(s => s + 1);
-    else setScreen("main");
+    else setConnectPhase('instagram');
   };
 
   const isPhotoStep = current.multi && !!(current.options[0] as StepOption & { photo?: string }).photo;
+
+  if (connectPhase === 'loading') {
+    return (
+      <div className="flex flex-col items-center justify-center bg-white" style={{ height: "100dvh" }}>
+        <div className="w-14 h-14 rounded-full bg-black flex items-center justify-center mb-5">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="white" strokeWidth="1.6"/>
+            <path d="M16.5 7.5l-3 6-6 3 3-6 6-3z" fill="white"/>
+            <circle cx="12" cy="12" r="1.5" fill="black"/>
+          </svg>
+        </div>
+        <div className="font-serif text-[26px] text-black mb-2">Building your profile</div>
+        <div className="font-satoshi text-[14px] text-gray-400 mb-8 text-center px-10">Curating destinations based on your style...</div>
+        <div className="flex gap-1.5">
+          {[0,1,2].map(i => (
+            <div key={i} className="w-2 h-2 rounded-full bg-black animate-bounce" style={{ animationDelay: i*0.15+'s' }}/>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (connectPhase === 'instagram') {
+    return (
+      <div className="flex flex-col bg-white overflow-hidden" style={{ height: "100dvh" }}>
+        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "45%" }}>
+          <img src="https://i.pinimg.com/1200x/65/2e/96/652e96ed2ef95f0f3f180ba2f2b7aca8.jpg" alt="" className="w-full h-full object-cover"/>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, white, transparent 60%)" }}/>
+        </div>
+        <div className="flex-1 flex flex-col px-6 pt-2 pb-8">
+          <div className="flex-1">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center mb-4">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2"/><circle cx="12" cy="12" r="5" stroke="white" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+            </div>
+            <h2 className="font-serif text-[28px] text-black leading-tight mb-2">Connect Instagram</h2>
+            <p className="font-satoshi text-[15px] text-gray-400 leading-relaxed">Compass can read your travel posts and reels to build an even more personal trip DNA. Your data stays private.</p>
+            <div className="mt-5 space-y-3">
+              {["Personalise destinations from your posts","Match vibes from people you follow","Find travel-ready friends"].map(t => (
+                <div key={t} className="flex items-center gap-2.5"><div className="w-1.5 h-1.5 rounded-full bg-black flex-shrink-0"/><span className="font-satoshi text-[14px] text-gray-700">{t}</span></div>
+              ))}
+            </div>
+          </div>
+          <button onClick={() => setConnectPhase('groupchat')} className="w-full py-4 rounded-2xl text-[16px] font-satoshi font-600 text-white bg-black mb-3">Connect Instagram</button>
+          <button onClick={() => setConnectPhase('groupchat')} className="w-full py-3 font-satoshi text-[15px] font-500 text-gray-400">Skip for now</button>
+        </div>
+      </div>
+    );
+  }
+
+  if (connectPhase === 'groupchat') {
+    return (
+      <div className="flex flex-col bg-white overflow-hidden" style={{ height: "100dvh" }}>
+        <div className="relative flex-shrink-0 overflow-hidden" style={{ height: "45%" }}>
+          <img src="https://i.pinimg.com/1200x/9f/8d/ee/9f8deee3f62efe64251986d5ab3c07b5.jpg" alt="" className="w-full h-full object-cover"/>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, white, transparent 60%)" }}/>
+        </div>
+        <div className="flex-1 flex flex-col px-6 pt-2 pb-8">
+          <div className="flex-1">
+            <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center mb-4">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="white" strokeWidth="2"/></svg>
+            </div>
+            <h2 className="font-serif text-[28px] text-black leading-tight mb-2">Invite your crew</h2>
+            <p className="font-satoshi text-[15px] text-gray-400 leading-relaxed">Connect WhatsApp or iMessage so your group can plan, vote on destinations, and split costs together.</p>
+            <div className="mt-5 flex gap-3">
+              {[
+                { name: "WhatsApp", color: "bg-green-500", icon: "💬" },
+                { name: "iMessage", color: "bg-blue-500", icon: "💬" },
+                { name: "Telegram", color: "bg-sky-500", icon: "✈️" },
+              ].map(app => (
+                <div key={app.name} className={"flex-1 flex flex-col items-center gap-1.5 rounded-2xl py-3 " + app.color + "/10 border border-gray-100"}>
+                  <span className="text-2xl">{app.icon}</span>
+                  <span className="font-satoshi text-[11px] font-600 text-gray-700">{app.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button onClick={() => { setConnectPhase('loading'); setTimeout(() => setScreen('main'), 2000); }} className="w-full py-4 rounded-2xl text-[16px] font-satoshi font-600 text-white bg-black mb-3">Connect group chat</button>
+          <button onClick={() => { setConnectPhase('loading'); setTimeout(() => setScreen('main'), 2000); }} className="w-full py-3 font-satoshi text-[15px] font-500 text-gray-400">Skip for now</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col bg-white overflow-hidden" style={{ height: "100dvh" }}>

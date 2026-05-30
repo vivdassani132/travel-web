@@ -112,7 +112,7 @@ export default function DestinationDetail({ dest, onBack }: Props) {
                   </svg>
                 </button>
                 {i === 0 && (
-                  <div className="absolute bottom-3 left-3 w-10 h-10 rounded-full bg-[#00AA6C] flex flex-col items-center justify-center shadow">
+                  <div className="absolute bottom-3 left-3 w-10 h-10 rounded-full bg-[#000000] flex flex-col items-center justify-center shadow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/></svg>
                     <span className="font-satoshi text-white text-[7px] font-700 leading-none">2024</span>
                   </div>
@@ -158,7 +158,7 @@ export default function DestinationDetail({ dest, onBack }: Props) {
                 <img src={item.photo} alt={item.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 py-3 pr-3">
-                <div className="font-satoshi text-[11px] text-[#00AA6C] font-600">{item.type}</div>
+                <div className="font-satoshi text-[11px] text-[#000000] font-600">{item.type}</div>
                 <div className="font-satoshi text-[14px] font-700 text-gray-900 mt-0.5 leading-snug">{item.name}</div>
                 <div className="flex items-center gap-1.5 mt-1">
                   <BubbleRating rating={item.rating} />
@@ -181,7 +181,7 @@ function BubbleRating({ rating }: { rating: number }) {
     <div className="flex gap-0.5">
       {[0,1,2,3,4].map(i => (
         <div key={i} className="w-[11px] h-[11px] rounded-full"
-          style={{ background: i < Math.floor(rating) ? "#00AA6C" : (i === Math.floor(rating) && rating%1>=0.5 ? "linear-gradient(90deg,#00AA6C 50%,#d1d1d6 50%)" : "#d1d1d6") }} />
+          style={{ background: i < Math.floor(rating) ? "#000000" : (i === Math.floor(rating) && rating%1>=0.5 ? "linear-gradient(90deg,#000000 50%,#d1d1d6 50%)" : "#d1d1d6") }} />
       ))}
     </div>
   );
