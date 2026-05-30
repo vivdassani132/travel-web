@@ -308,8 +308,8 @@ export default function HomeTab() {
       {/* Header */}
       <div className="flex items-center justify-between px-5 pt-12 pb-4">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl overflow-hidden">
-            <img src="https://i.pinimg.com/1200x/6d/08/00/6d0800d84e05774759f339159ed5f06c.jpg" alt="Compass" className="w-full h-full object-cover"/>
+          <div className="w-9 h-9 rounded-full overflow-hidden">
+            <img src="https://i.pinimg.com/1200x/da/79/67/da7967bab2b6d69a11986a73c8e35f3d.jpg" alt="Compass" className="w-full h-full object-cover"/>
           </div>
           <span className="font-serif text-[22px] text-black">Compass</span>
         </div>
