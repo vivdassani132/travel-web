@@ -147,7 +147,7 @@ const TRIPS: Record<string, Trip> = {
         { time:"20:00", label:"Fondue dinner in town", note:"Restaurant Schuh. Moitié-moitié with local Fendant wine.", img:IMGS.diner, type:"food", cost:"$52",
           breakdown:[{ label:"Cheese fondue for 2", cost:"$38" },{ label:"Fendant white wine", cost:"$14" }] },
       ]},
-      { day:2, title:"Jungfraujoch Summit", total:"$280", events:[
+      { day:2, title:"Summit Day", total:"$280", events:[
         { time:"06:30", label:"Breakfast + early start", note:"Get there before tour groups", img:IMGS.breakfast, type:"food", cost:"$38",
           breakdown:[{ label:"Hotel buffet breakfast", cost:"$38 (included in stay option)" }] },
         { time:"08:00", label:"Cogwheel train to Jungfraujoch", note:"Top of Europe — 3,454m. Views of Aletsch glacier.", img:IMGS.bus, type:"transport", cost:"$180",
@@ -162,6 +162,20 @@ const TRIPS: Record<string, Trip> = {
           breakdown:[{ label:"Evening train back", cost:"$8" }] },
         { time:"21:00", label:"Raclette dinner", note:"Tüfi Stübli. Melted cheese scraped tableside.", img:IMGS.diner, type:"food", cost:"$44",
           breakdown:[{ label:"Raclette for 2 (3 rounds)", cost:"$36" },{ label:"Local beer", cost:"$8" }] },
+      ]},
+      { day:3, title:"Lakes & Villages", total:"$190", events:[
+        { time:"08:00", label:"Breakfast + pack daypack", note:"Hotel buffet, grab a packed lunch too", img:IMGS.breakfast, type:"food", cost:"$38",
+          breakdown:[{ label:"Buffet breakfast", cost:"$38" }] },
+        { time:"09:30", label:"Lake Thun kayak tour", note:"2h guided kayak across the emerald lake", img:IMGS.paddle, type:"activity", cost:"$55",
+          breakdown:[{ label:"Guided kayak 2h", cost:"$55" },{ label:"Wetsuit hire", cost:"$12" }] },
+        { time:"12:30", label:"Thun old town lunch", note:"Lakeside terrace. Rösti with fried egg and Appenzeller cheese.", img:IMGS.diner, type:"food", cost:"$32",
+          breakdown:[{ label:"Rösti plate", cost:"$18" },{ label:"Swiss lemonade", cost:"$6" },{ label:"Apple cake slice", cost:"$8" }] },
+        { time:"14:30", label:"Ballenberg open-air museum", note:"200-year-old farmhouses from every Swiss canton, relocated here", img:DEST.mountains, type:"activity", cost:"$28",
+          breakdown:[{ label:"Museum entry", cost:"$28" },{ label:"Audio guide", cost:"$6" }] },
+        { time:"17:30", label:"Scenic bus back to Interlaken", note:"Golden hour through the valleys", img:IMGS.busNight, type:"transport", cost:"$12",
+          breakdown:[{ label:"Postbus ticket (return)", cost:"$12" }] },
+        { time:"20:00", label:"Alpenhorn concert + wine", note:"Hotel lobby live music + Chasselas white wine tasting", img:IMGS.nightStreet, type:"activity", cost:"$25",
+          breakdown:[{ label:"Concert & wine tasting", cost:"$25" }] },
       ]},
     ],
   },
@@ -227,6 +241,20 @@ const TRIPS: Record<string, Trip> = {
         { time:"21:00", label:"Night bus back to Manhattan", note:"Late bus from Kingston, or drive back", img:IMGS.busNight, type:"transport", cost:"$22",
           breakdown:[{ label:"Trailways bus return", cost:"$22" }] },
       ]},
+      { day:3, title:"Downtown Deep Dive", total:"$120", events:[
+        { time:"09:00", label:"Lower East Side bagels & coffee", note:"Russ & Daughters. The best smoked salmon on earth.", img:IMGS.breakfast, type:"food", cost:"$22",
+          breakdown:[{ label:"Lox & bagel platter", cost:"$16" },{ label:"Drip coffee × 2", cost:"$6" }] },
+        { time:"10:30", label:"Chinatown street food walk", note:"Canal St dumplings → Mott St bao → Doyers Street noodles", img:IMGS.streetFood, type:"activity", cost:"$18",
+          breakdown:[{ label:"Pork dumplings × 8", cost:"$6" },{ label:"Char siu bao × 2", cost:"$5" },{ label:"Dan dan noodles", cost:"$7" }] },
+        { time:"13:00", label:"Brooklyn flea market", note:"Smorgasburg, Williamsburg. 100+ food vendors.", img:IMGS.gasStation, type:"activity", cost:"$25",
+          breakdown:[{ label:"Vendor snacks + drinks", cost:"$25" }] },
+        { time:"15:30", label:"Williamsburg rooftop bar", note:"Westlight. Empire State + skyline view. Cocktail hour.", img:IMGS.nightStreet, type:"activity", cost:"$28",
+          breakdown:[{ label:"Cocktails × 2", cost:"$28" }] },
+        { time:"18:00", label:"Subway back — G to L to A", note:"NYC subway experience. Mandatory chaos.", img:IMGS.bus, type:"transport", cost:"$2.90",
+          breakdown:[{ label:"Subway single ride", cost:"$2.90" }] },
+        { time:"21:00", label:"Late-night pizza slice crawl", note:"Di Fara → Joe's → Scarr's. You're in New York.", img:IMGS.burger, type:"food", cost:"$18",
+          breakdown:[{ label:"3 pizza slices", cost:"$9" },{ label:"Coke × 2", cost:"$4" },{ label:"Gelato after", cost:"$5" }] },
+      ]},
     ],
   },
 };
@@ -234,10 +262,12 @@ const TRIPS: Record<string, Trip> = {
 const DEFAULT_TRIP = TRIPS["Coastal & Ocean"] || Object.values(TRIPS)[0];
 
 const DISCOVER = [
-  { id:"cusco",  name:"Cusco",       country:"Peru",      tags:["Cultural","Highlands"], photo:DEST.peru     },
-  { id:"kyoto",  name:"Kyoto",       country:"Japan",     tags:["Temples","Food"],       photo:DEST.kyoto    },
-  { id:"ba",     name:"Buenos Aires",country:"Argentina", tags:["Fútbol","Nightlife"],   photo:DEST.argentina},
-  { id:"russia", name:"Moscow",      country:"Russia",    tags:["History","Winter"],     photo:DEST.russia   },
+  { id:"cusco",    name:"Cusco",        country:"Peru",       tags:["Cultural","Highlands"], photo:DEST.peru      },
+  { id:"kyoto",    name:"Kyoto",        country:"Japan",      tags:["Temples","Food"],       photo:DEST.kyoto     },
+  { id:"ba",       name:"Buenos Aires", country:"Argentina",  tags:["Fútbol","Nightlife"],   photo:DEST.argentina },
+  { id:"russia",   name:"Moscow",       country:"Russia",     tags:["History","Winter"],     photo:DEST.russia    },
+  { id:"maldives", name:"Maldives",     country:"Indian Ocean",tags:["Ocean","Luxury"],      photo:DEST.maldives  },
+  { id:"bali",     name:"Ubud",         country:"Bali",       tags:["Jungle","Spiritual"],   photo:DEST.bali      },
 ];
 type DiscoverDest = typeof DISCOVER[0];
 
@@ -335,10 +365,9 @@ export default function HomeTab() {
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {trip.days_plan.map((d, i) => (
             <button key={i} onClick={() => setActiveDay(i)}
-              className="flex-shrink-0 rounded-2xl px-4 py-2.5 font-satoshi text-[13px] font-600 transition-all text-left"
-              style={{ background: activeDay === i ? "#000" : "#f5f5f5", color: activeDay === i ? "#fff" : "#555", minWidth: 80 }}>
-              <div style={{ color: activeDay === i ? "rgba(255,255,255,0.6)" : "#aaa", fontSize: 10 }}>DAY {d.day}</div>
-              {d.title}
+              className="flex-shrink-0 rounded-2xl px-5 py-2.5 font-satoshi text-[14px] font-600 transition-all"
+              style={{ background: activeDay === i ? "#000" : "#f5f5f5", color: activeDay === i ? "#fff" : "#555" }}>
+              Day {d.day}
             </button>
           ))}
         </div>
