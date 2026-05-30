@@ -3,7 +3,7 @@ import { useState } from "react";
 import HomeTab from "./tabs/HomeTab";
 import SearchTab from "./tabs/SearchTab";
 import TripsTab from "./tabs/TripsTab";
-import ReviewTab from "./tabs/ReviewTab";
+import TicketsTab from "./tabs/TicketsTab";
 import AccountTab from "./tabs/AccountTab";
 
 const tabs = [
@@ -37,12 +37,12 @@ const tabs = [
     ),
   },
   {
-    key: "review", label: "Review",
+    key: "tickets", label: "Tickets",
     icon: (active: boolean) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"
+        <path d="M2 9a1 1 0 011-1h18a1 1 0 011 1v2a2 2 0 000 4v2a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a2 2 0 000-4V9z"
           stroke={active ? "#1c1c1e" : "#8e8e93"} strokeWidth="1.8" fill={active ? "#1c1c1e" : "none"}/>
-        {active && <path d="M8 10h8M8 13h5" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>}
+        {active && <path d="M9 8v8M12 8v8" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="2 2"/>}
       </svg>
     ),
   },
@@ -57,7 +57,7 @@ const tabs = [
   },
 ];
 
-type TabKey = "home"|"search"|"trips"|"review"|"account";
+type TabKey = "home"|"search"|"trips"|"tickets"|"account";
 
 export default function MainScreen() {
   const [tab, setTab] = useState<TabKey>("home");
@@ -68,7 +68,7 @@ export default function MainScreen() {
         {tab === "home"    && <HomeTab />}
         {tab === "search"  && <SearchTab />}
         {tab === "trips"   && <TripsTab />}
-        {tab === "review"  && <ReviewTab />}
+        {tab === "tickets" && <TicketsTab />}
         {tab === "account" && <AccountTab />}
       </div>
 
